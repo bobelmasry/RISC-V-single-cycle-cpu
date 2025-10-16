@@ -1,0 +1,24 @@
+# Ignore simulation outputs
+/results/
+*.vcd
+*.log
+*.wlf
+
+# Ignore synthesis results
+*.bit
+*.rpt
+*.jou
+*.dcp
+
+# Tool-specific files
+*.ini
+*.bak
+*.mpf
+*.xpr
+*.xise
+*.tcl.history
+
+# Editor/IDE stuff
+.vscode/
+*.swp
+*.tmp
