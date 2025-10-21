@@ -58,6 +58,28 @@ always@(*) begin
         ALUSrc = 1'b1;
         RegWrite = 1'b1;
         end
+        // JAL and JALR
+        5'b11011: begin
+        branch = 1'b1; // We need to add support that ALU takes the PC as a 2nd input instead of Immediate
+        // though one of them takes 1 reg + Imm and the other takes 1 reg + PC
+        // so we'll need to figure it out
+        memRead = 1'b0;
+        MemtoReg = 1'b0;
+        ALUOp = 2'b00; // Also not sure about this
+        MemWrite = 1'b0;
+        ALUSrc = 1'b0; // we'll also have to figure this one out
+        RegWrite = 1'b1;
+        end
+        // U-type
+        5'b01101: begin
+        branch = 1'b0;
+        memRead = 1'b0;
+        MemtoReg = 1'b0;
+        ALUOp = 2'b00; // Not sure about this
+        MemWrite = 1'b0;
+        ALUSrc = 1'b1;
+        RegWrite = 1'b1; // It is 1 for all U-type instructions other than AUIPC which writes to the PC
+        end
         default: begin
         branch = 1'bx;
         memRead = 1'bx;
