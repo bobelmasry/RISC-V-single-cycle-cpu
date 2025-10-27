@@ -87,40 +87,40 @@ always @(*) begin
     endcase
     case (SSDSel)
         4'b0000: begin
-            SSD = PC;
+            SSD = PC[12:0];
         end
         4'b0001: begin
-            SSD = PC_Add4;
+            SSD = PC_Add4[12:0];
         end
         4'b0010: begin
-            SSD = PC_Branch;
+            SSD = PC_Branch[12:0];
         end
         4'b0011: begin
-            SSD = PC_input ;
+            SSD = PC_input[12:0];
         end
         4'b0100: begin
-            SSD = data_rs1;
+            SSD = data_rs1[12:0];
         end
         4'b0101: begin
-            SSD = data_rs2;
+            SSD = data_rs2[12:0];
         end
         4'b0110: begin
-            SSD = dataWrite;
+            SSD = dataWrite[12:0];
         end
         4'b0111: begin
-            SSD = Immediate;
+            SSD = Immediate[12:0];
         end
         4'b1000: begin
-            SSD = ImmediateShifted;
+            SSD = ImmediateShifted[12:0];
         end
         4'b1001: begin
-            SSD = secondValue;
+            SSD = secondValue[12:0];
         end
         4'b1010: begin
-            SSD = ALUResult;
+            SSD = ALUResult[12:0];
         end
         4'b1011: begin
-            SSD = MemoryOutput;
+            SSD = MemoryOutput[12:0];
         end
         
     endcase
