@@ -9,7 +9,7 @@ wire [4:0] specifier = instr[6:2];
 always@(*) begin
     case(specifier)
         5'b01100: begin
-        assign branch = 1'b0;
+        branch = 1'b0;
         memRead = 1'b0;
         MemtoReg = 1'b0;
         ALUOp = 2'b10;

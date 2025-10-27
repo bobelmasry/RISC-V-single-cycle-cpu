@@ -10,12 +10,9 @@ input [3:0] sel, input [N-1:0] a, b, output reg zero, output reg [N-1:0] out
 
 wire cout1;
 wire [N-1:0] addResult;
-wire cout1;
-wire [N-1:0] subResult;
 wire [N-1:0] secondOperand;
 assign secondOperand =  (sel[2]) ? ~b : b;
 rca #(N) RCAadd(.cin(sel[2]), .a(a), .b(secondOperand), .cout(cout1), .bitOuput(addResult));
-//rca #(N) RCAsub(.cin(1), .a(a), .b(secondOperand), .cout(cout2), .bitOuput(subResult));
 
 
 //Anding

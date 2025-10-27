@@ -13,7 +13,7 @@ always @ (posedge clk or posedge rst)
             regFile[i] <= 0;
     end else begin
         if(regWrite == 1'b1 && rd != 5'b00000)
-            regFile [rd] = writeData; 
+            regFile [rd] <= writeData; 
     end
     assign data1 = regFile[rs1];
     assign data2 = regFile[rs2];
