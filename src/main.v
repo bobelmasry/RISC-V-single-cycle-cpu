@@ -45,10 +45,12 @@ nMUX #(32) mux(.sel(ALUSourceSignal), .a(data_rs2), .b(Immediate), .c(secondValu
 ALU alu(.sel(ALUSelector), .a(data_rs1), .b(secondValue), .zero(zeroSignal), .out(ALUResult));
 
 //Branch address logic
+wire [31:0] PreShiftImmediate;
+assign PreShiftImmediate = {1'b0 + Immediate[31:1]};
 wire [31:0] ImmediateShifted;
 wire BranchConfirm;
 assign BranchConfirm = (branchSignal & zeroSignal);
-nBitShift #(32) shifter(.in(Immediate), .out(ImmediateShifted));
+nBitShift #(32) shifter(.in(PreShiftImmediate), .out(ImmediateShifted));
 
 
 // Memory

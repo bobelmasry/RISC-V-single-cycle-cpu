@@ -45,7 +45,7 @@ always@(*) begin
         MemtoReg = 1'bx;
         ALUOp = 2'b01;
         MemWrite = 1'b0;
-        ALUSrc = 1'b1;
+        ALUSrc = 1'b0;
         RegWrite = 1'b0;
         end
         // I-type instructions other than Load

@@ -14,6 +14,5 @@ input [5:0] addr, input [31:0] data_in, output [31:0] data_out);
         mem[0]=32'd17;
         mem[1]=32'd9;
         mem[2]=32'd25;
-        mem[3]=32'd30;
     end
 endmodule
