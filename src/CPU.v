@@ -69,6 +69,11 @@ assign PC_Add4 = PC+32'd4;
 assign PC_Branch = PC + ImmediateShifted;
 nMUX #(32) BranchMux(.sel(BranchConfirm), .a(PC_Add4), .b(PC_Branch), .c(PC_input));
 
+//Concatenation of control signals
+wire [15:0] controlSignalsCombined;
+assign controlSignalsCombined = { 2'b00 + branchSignal + memoryReadSignal + memroyToRegisterSignal + memoryWriteSignal + 
+                ALUSourceSignal + registerWriteSignal + ALUOpSignal + ALUSelector + zeroSignal + BranchConfirm};
+
 always @(*) begin
     case (LEDSel)
         2'b00: begin
@@ -78,11 +83,11 @@ always @(*) begin
             LED = IF_data[31:16];
         end
         2'b10: begin
-            LED = {branchSignal + memoryReadSignal + memroyToRegisterSignal + memoryWriteSignal + 
-                ALUSourceSignal + registerWriteSignal + ALUOpSignal + ALUSelector + zeroSignal + BranchConfirm};
+            LED = controlSignalsCombined;
         end
         2'b11: begin
         //Empty for now
+            LED = 16'b1111111111111111;
         end
     endcase
     case (SSDSel)

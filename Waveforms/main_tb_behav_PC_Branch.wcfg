@@ -12,14 +12,14 @@
    </db_ref_list>
    <zoom_setting>
       <ZoomStartTime time="0.000 ns"></ZoomStartTime>
-      <ZoomEndTime time="88.151 ns"></ZoomEndTime>
-      <Cursor1Time time="44.600 ns"></Cursor1Time>
+      <ZoomEndTime time="35.421 ns"></ZoomEndTime>
+      <Cursor1Time time="20.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="273"></NameColumnWidth>
-      <ValueColumnWidth column_width="263"></ValueColumnWidth>
+      <ValueColumnWidth column_width="255"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="38" />
+   <WVObjectSize size="16" />
    <wvobject fp_name="/main_tb/clk" type="logic">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
@@ -28,53 +28,15 @@
       <obj_property name="ElementShortName">rst</obj_property>
       <obj_property name="ObjectShortName">rst</obj_property>
    </wvobject>
-   <wvobject fp_name="/main_tb/SSDClk" type="logic">
-      <obj_property name="ElementShortName">SSDClk</obj_property>
-      <obj_property name="ObjectShortName">SSDClk</obj_property>
+   <wvobject fp_name="/main_tb/MAIN/IF_data" type="array">
+      <obj_property name="ElementShortName">IF_data[31:0]</obj_property>
+      <obj_property name="ObjectShortName">IF_data[31:0]</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/main_tb/LEDSel" type="array">
-      <obj_property name="ElementShortName">LEDSel[1:0]</obj_property>
-      <obj_property name="ObjectShortName">LEDSel[1:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/main_tb/SSDSel" type="array">
-      <obj_property name="ElementShortName">SSDSel[3:0]</obj_property>
-      <obj_property name="ObjectShortName">SSDSel[3:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/main_tb/LED" type="array">
-      <obj_property name="ElementShortName">LED[15:0]</obj_property>
-      <obj_property name="ObjectShortName">LED[15:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/main_tb/SSD" type="array">
-      <obj_property name="ElementShortName">SSD[12:0]</obj_property>
-      <obj_property name="ObjectShortName">SSD[12:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/main_tb/clk_period" type="array">
-      <obj_property name="ElementShortName">clk_period[31:0]</obj_property>
-      <obj_property name="ObjectShortName">clk_period[31:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/Immediate" type="array">
-      <obj_property name="ElementShortName">Immediate[31:0]</obj_property>
-      <obj_property name="ObjectShortName">Immediate[31:0]</obj_property>
-      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/PreShiftImmediate" type="array">
-      <obj_property name="ElementShortName">PreShiftImmediate[31:0]</obj_property>
-      <obj_property name="ObjectShortName">PreShiftImmediate[31:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/ImmediateShifted" type="array">
-      <obj_property name="ElementShortName">ImmediateShifted[31:0]</obj_property>
-      <obj_property name="ObjectShortName">ImmediateShifted[31:0]</obj_property>
-      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/BranchConfirm" type="logic">
-      <obj_property name="ElementShortName">BranchConfirm</obj_property>
-      <obj_property name="ObjectShortName">BranchConfirm</obj_property>
-   </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/PC_input" type="array">
-      <obj_property name="ElementShortName">PC_input[31:0]</obj_property>
-      <obj_property name="ObjectShortName">PC_input[31:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   <wvobject fp_name="/main_tb/MAIN/controlSignalsCombined" type="array">
+      <obj_property name="ElementShortName">controlSignalsCombined[15:0]</obj_property>
+      <obj_property name="ObjectShortName">controlSignalsCombined[15:0]</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/main_tb/MAIN/PC" type="array">
       <obj_property name="ElementShortName">PC[31:0]</obj_property>
@@ -91,106 +53,49 @@
       <obj_property name="ObjectShortName">PC_Branch[31:0]</obj_property>
       <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/PC_input" type="array">
+      <obj_property name="ElementShortName">PC_input[31:0]</obj_property>
+      <obj_property name="ObjectShortName">PC_input[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
    <wvobject fp_name="/main_tb/MAIN/data_rs1" type="array">
       <obj_property name="ElementShortName">data_rs1[31:0]</obj_property>
       <obj_property name="ObjectShortName">data_rs1[31:0]</obj_property>
-      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/main_tb/MAIN/data_rs2" type="array">
       <obj_property name="ElementShortName">data_rs2[31:0]</obj_property>
       <obj_property name="ObjectShortName">data_rs2[31:0]</obj_property>
-      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/secondValue" type="array">
-      <obj_property name="ElementShortName">secondValue[31:0]</obj_property>
-      <obj_property name="ObjectShortName">secondValue[31:0]</obj_property>
-      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/ALUSourceSignal" type="logic">
-      <obj_property name="ElementShortName">ALUSourceSignal</obj_property>
-      <obj_property name="ObjectShortName">ALUSourceSignal</obj_property>
-   </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/zeroSignal" type="logic">
-      <obj_property name="ElementShortName">zeroSignal</obj_property>
-      <obj_property name="ObjectShortName">zeroSignal</obj_property>
-   </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/ALUResult" type="array">
-      <obj_property name="ElementShortName">ALUResult[31:0]</obj_property>
-      <obj_property name="ObjectShortName">ALUResult[31:0]</obj_property>
-      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/alu/zero" type="logic">
-      <obj_property name="ElementShortName">zero</obj_property>
-      <obj_property name="ObjectShortName">zero</obj_property>
-   </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/alu/out" type="array">
-      <obj_property name="ElementShortName">out[31:0]</obj_property>
-      <obj_property name="ObjectShortName">out[31:0]</obj_property>
-      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/alu/addResult" type="array">
-      <obj_property name="ElementShortName">addResult[31:0]</obj_property>
-      <obj_property name="ObjectShortName">addResult[31:0]</obj_property>
-      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/alu/andResult" type="array">
-      <obj_property name="ElementShortName">andResult[31:0]</obj_property>
-      <obj_property name="ObjectShortName">andResult[31:0]</obj_property>
-      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/alu/orResult" type="array">
-      <obj_property name="ElementShortName">orResult[31:0]</obj_property>
-      <obj_property name="ObjectShortName">orResult[31:0]</obj_property>
-      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/main_tb/MAIN/dataWrite" type="array">
       <obj_property name="ElementShortName">dataWrite[31:0]</obj_property>
       <obj_property name="ObjectShortName">dataWrite[31:0]</obj_property>
-      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/RF/rs1" type="array">
-      <obj_property name="ElementShortName">rs1[4:0]</obj_property>
-      <obj_property name="ObjectShortName">rs1[4:0]</obj_property>
-      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   <wvobject fp_name="/main_tb/MAIN/Immediate" type="array">
+      <obj_property name="ElementShortName">Immediate[31:0]</obj_property>
+      <obj_property name="ObjectShortName">Immediate[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/RF/rs2" type="array">
-      <obj_property name="ElementShortName">rs2[4:0]</obj_property>
-      <obj_property name="ObjectShortName">rs2[4:0]</obj_property>
-      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   <wvobject fp_name="/main_tb/MAIN/ImmediateShifted" type="array">
+      <obj_property name="ElementShortName">ImmediateShifted[31:0]</obj_property>
+      <obj_property name="ObjectShortName">ImmediateShifted[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/RF/rd" type="array">
-      <obj_property name="ElementShortName">rd[4:0]</obj_property>
-      <obj_property name="ObjectShortName">rd[4:0]</obj_property>
-      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   <wvobject fp_name="/main_tb/MAIN/secondValue" type="array">
+      <obj_property name="ElementShortName">secondValue[31:0]</obj_property>
+      <obj_property name="ObjectShortName">secondValue[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/DataMemory/addr" type="array">
-      <obj_property name="ElementShortName">addr[5:0]</obj_property>
-      <obj_property name="ObjectShortName">addr[5:0]</obj_property>
-      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   <wvobject fp_name="/main_tb/MAIN/ALUResult" type="array">
+      <obj_property name="ElementShortName">ALUResult[31:0]</obj_property>
+      <obj_property name="ObjectShortName">ALUResult[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/DataMemory/MemWrite" type="logic">
-      <obj_property name="ElementShortName">MemWrite</obj_property>
-      <obj_property name="ObjectShortName">MemWrite</obj_property>
-   </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/DataMemory/MemRead" type="logic">
-      <obj_property name="ElementShortName">MemRead</obj_property>
-      <obj_property name="ObjectShortName">MemRead</obj_property>
-   </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/registerWriteSignal" type="logic">
-      <obj_property name="ElementShortName">registerWriteSignal</obj_property>
-      <obj_property name="ObjectShortName">registerWriteSignal</obj_property>
-   </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/ControlSignals/RegWrite" type="logic">
-      <obj_property name="ElementShortName">RegWrite</obj_property>
-      <obj_property name="ObjectShortName">RegWrite</obj_property>
-   </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/RF/regWrite" type="logic">
-      <obj_property name="ElementShortName">regWrite</obj_property>
-      <obj_property name="ObjectShortName">regWrite</obj_property>
-   </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/alu/sel" type="array">
-      <obj_property name="ElementShortName">sel[3:0]</obj_property>
-      <obj_property name="ObjectShortName">sel[3:0]</obj_property>
-      <obj_property name="Radix">BINARYRADIX</obj_property>
+   <wvobject fp_name="/main_tb/MAIN/MemoryOutput" type="array">
+      <obj_property name="ElementShortName">MemoryOutput[31:0]</obj_property>
+      <obj_property name="ObjectShortName">MemoryOutput[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
 </wave_config>

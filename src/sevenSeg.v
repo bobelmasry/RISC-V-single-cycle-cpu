@@ -1,5 +1,5 @@
 module BCD (
-input [8:0] num,
+input [12:0] num,
 output reg [3:0] Thousands,
 output reg [3:0] Hundreds,
 output reg [3:0] Tens,
@@ -13,7 +13,7 @@ always @(num)
     Hundreds = 4'd0;
     Tens = 4'd0;
     Ones = 4'd0;
-    for (i =8; i >= 0 ; i = i-1 )
+    for (i =12; i >= 0 ; i = i-1 )
         begin
             if(Thousands >=5)
             Thousands = Thousands + 3;
@@ -43,13 +43,13 @@ endmodule
 
 module sevenSeg (
 input clk,
-input [7:0] a,
+input [12:0] a,
 output reg [3:0] Anode,
 output reg [6:0] LED_out
 );
 
 wire [3:0] thousands, hundreds, tens, ones;
-wire [7:0] in = (a[7]) ? (~a + 1) : a;
+wire [12:0] in = a;
 BCD bcd_module (
 .num(in),
  .Thousands(thousands),
@@ -71,7 +71,7 @@ always @(*)
     case(LED_activating_counter)
         2'b00: begin
         Anode = 4'b0111;
-        LED_BCD = (a[7]) ? 11 : 10;
+        LED_BCD = thousands;
         end
         2'b01: begin
         Anode = 4'b1011;

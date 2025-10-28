@@ -29,20 +29,20 @@ always@(*) begin
             zero = (addResult == 0) ? 1 : 0;
         end
         4'b0110: begin //Substraction
-            assign out = addResult ;
-            assign zero = (addResult == 0) ? 1 : 0;
+            out = addResult ;
+            zero = (addResult == 0) ? 1 : 0;
         end
         4'b0000: begin//a ding
-            assign out = andResult;
-            assign zero = (andResult == 0) ? 1 : 0;
+            out = andResult;
+            zero = (andResult == 0) ? 1 : 0;
         end
         4'b0001: begin//ORing
-            assign out = orResult;
-            assign zero = (orResult == 0) ? 1 : 0;
+            out = orResult;
+            zero = (orResult == 0) ? 1 : 0;
         end
         default: begin
-            assign zero = 1;
-            assign out = 0;
+            zero = 1;
+            out = 0;
         end 
         
     endcase 

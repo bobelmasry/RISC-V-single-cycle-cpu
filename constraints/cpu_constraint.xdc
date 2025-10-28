@@ -1,9 +1,16 @@
-# Clock
-set_property package_pin E3 [get_ports clk]
+# SSD Clock
+set_property package_pin E3 [get_ports SSDClk]
+set_property iostandard LVCMOS33 [get_ports SSDClk]
+
+# Button Clock
+set_property package_pin N17 [get_ports clk]
 set_property iostandard LVCMOS33 [get_ports clk]
 
+# Reset Button
+set_property package_pin M18 [get_ports rst]
+set_property iostandard LVCMOS33 [get_ports rst]
 
-# Slide buttons
+# Slide buttons (for the 16 LEDs)
 set_property package_pin J15 [get_ports {LEDSel[0]}]
 set_property iostandard LVCMOS33 [get_ports {LEDSel[0]}]
 
@@ -13,6 +20,7 @@ set_property iostandard LVCMOS33 [get_ports {LEDSel[1]}]
 # set_property package_pin M13 [get_ports {a[2]}]
 # set_property iostandard LVCMOS33 [get_ports {a[2]}]
 
+# Slide buttons selectors for the SSD
 set_property package_pin R15 [get_ports {SSDSel[0]}]
 set_property iostandard LVCMOS33 [get_ports {SSDSel[0]}]
 
