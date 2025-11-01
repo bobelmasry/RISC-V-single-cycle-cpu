@@ -46,7 +46,7 @@ ALU alu(.sel(ALUSelector), .a(data_rs1), .b(secondValue), .zero(zeroSignal), .ou
 
 //Branch address logic
 wire [31:0] PreShiftImmediate;
-assign PreShiftImmediate = {1'b0 + Immediate[31:1]};
+assign PreShiftImmediate = {Immediate[31], Immediate[31:1]};
 wire [31:0] ImmediateShifted;
 wire BranchConfirm;
 assign BranchConfirm = (branchSignal & zeroSignal);

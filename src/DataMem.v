@@ -11,8 +11,14 @@ input [5:0] addr, input [31:0] data_in, output [31:0] data_out);
         if(MemWrite) mem[addr] <= data_in;
     end
     initial begin
+        /*
         mem[0]=32'd17;
-        mem[1]=32'd9;
+        mem[1]=32'd9;   
         mem[2]=32'd25;
+        */
+        ///*    
+        mem[0]=32'd1;
+        mem[1]=32'd7;
+        //*/
     end
 endmodule
