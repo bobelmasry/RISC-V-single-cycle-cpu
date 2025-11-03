@@ -43,6 +43,7 @@ wire zeroSignal;
 wire [31:0] ALUResult;
 nMUX #(32) mux(.sel(ALUSourceSignal), .a(data_rs2), .b(Immediate), .c(secondValue));
 ALU alu(.sel(ALUSelector), .a(data_rs1), .b(secondValue), .zero(zeroSignal), .out(ALUResult));
+//prv32_ALU alu (.a(data_rs1), .b(secondValue), .shamt(), .alufn(ALUSelector), .r(ALUResult), .cf(carrySignal), .zf(zeroSignal), .vf(overflowSignal), .sf(signSignal))
 
 //Branch address logic
 wire [31:0] PreShiftImmediate;
