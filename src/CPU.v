@@ -19,12 +19,12 @@ InstrMem InstructionMemory(.addr(PC[7:2]),.data_out(IF_data));
 wire opcode = IF_data[6:0];
 wire isHalt;
 assign isHalt = (opcode == 7'b0001111 || opcode == 7'b1110011);
-//Constrol Signals
-wire branchSignal, memoryReadSignal, memroyToRegisterSignal, memoryWriteSignal, 
+//Control Signals
+wire branchSignal, memoryReadSignal, memoryToRegisterSignal, memoryWriteSignal, 
                 ALUSourceSignal, registerWriteSignal, jumpSignal;
 wire [1:0] ALUOpSignal;
 control ControlSignals(.instr(IF_data), .branch(branchSignal), .jump(jumpSignal),
-                        .memRead(memoryReadSignal), .MemtoReg(memroyToRegisterSignal), .MemWrite(memoryWriteSignal),
+                        .memRead(memoryReadSignal), .MemtoReg(memoryToRegisterSignal), .MemWrite(memoryWriteSignal),
                         .ALUSrc(ALUSourceSignal), .RegWrite(registerWriteSignal), .ALUOp(ALUOpSignal) );
 //Instruction Decoding
 wire [31:0] dataWrite, data_rs1, data_rs2;
