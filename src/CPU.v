@@ -2,8 +2,8 @@
 
 
 module main(
-input clk, rst, SSDClk, [1:0] LEDSel, [3:0] SSDSel,     
-output reg [15:0] LED, reg [12:0] SSD
+input clk, rst, SSDClk, input [1:0] LEDSel, input [3:0] SSDSel,     
+output reg [15:0] LED, output reg [12:0] SSD
     );
 wire [31:0] PC_input;
 wire [31:0] PC;
@@ -38,20 +38,28 @@ wire [3:0] ALUSelector;
 ALU_control ALUC(.ALUop(ALUOpSignal), .instr(IF_data), .ALUsel(ALUSelector));
 
 //ALU
+wire [4:0] shamt = IF_data[24:20];
 wire [31:0] secondValue;
 wire zeroSignal, carrySignal, zeroSignal, overflowSignal, signSignal;
 wire [31:0] ALUResult;
 nMUX #(32) mux(.sel(ALUSourceSignal), .a(data_rs2), .b(Immediate), .c(secondValue));
-//ALU alu(.sel(ALUSelector), .a(data_rs1), .b(secondValue), .zero(zeroSignal), .out(ALUResult));
-prv32_ALU alu(.a(data_rs1), .b(secondValue), .shamt(IF_data[24:20]), .alufn(ALUSelector), .r(ALUResult), .cf(carrySignal), .zf(zeroSignal), .vf(overflowSignal), .sf(signSignal));
-
+prv32_ALU alu (
+    .a(data_rs1),
+    .b(secondValue),
+    .shamt(shamt),
+    .alufn(ALUSelector),       // ALUOp
+    .r(ALUResult),
+    .cf(carrySignal),
+    .zf(zeroSignal),
+    .vf(overflowSignal),
+    .sf(signSignal)
+);
 //Branch address logic
 wire [31:0] PreShiftImmediate;
 assign PreShiftImmediate = {Immediate[31], Immediate[31:1]};
 wire [31:0] ImmediateShifted;
 wire BranchConfirm;
 assign BranchConfirm = (branchSignal & zeroSignal);
-nBitShift #(32) shifter(.in(PreShiftImmediate), .out(ImmediateShifted));
 
 
 // Memory
@@ -62,7 +70,7 @@ DataMem DataMemory(.clk(clk), .MemRead(memoryReadSignal), .MemWrite(memoryWriteS
                     .addr(MemoryAddress), .data_in(data_rs2), .data_out(MemoryOutput));
 
 //Data Write result
-nMUX #(32) mux2(.sel(memroyToRegisterSignal), .a(ALUResult), .b(MemoryOutput), .c(dataWrite));
+nMUX #(32) mux2(.sel(memoryToRegisterSignal), .a(ALUResult), .b(MemoryOutput), .c(dataWrite));
 
 
 //Branch decisions

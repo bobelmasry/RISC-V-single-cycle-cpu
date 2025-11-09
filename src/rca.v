@@ -3,7 +3,7 @@
 
 
 module rca #(parameter bits = 8)
-(input cin, input [bits - 1: 0] a, b, output cout, [bits - 1: 0] bitOuput
+(input cin, input [bits - 1: 0] a, b, output cout, output [bits - 1: 0] bitOuput
     );
     
     wire [bits - 1: 0] med;

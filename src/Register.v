@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 
 module Register #(parameter n = 8)(
-input clk, load, rst, [n-1:0] D, output [n-1:0] Q
+input clk, load, rst, input [n-1:0] D, output [n-1:0] Q
     );
     wire [n-1:0] med;
     genvar i;

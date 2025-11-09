@@ -16,7 +16,6 @@ end
 initial begin 
 MemRead = 1'b0;
 MemWrite  = 1'b0; 
-MemRead = 1'b0;
 addr = 6'b000000;
 data_in = 32'b00000000000000000000000000000000;
 #(clk_period)
