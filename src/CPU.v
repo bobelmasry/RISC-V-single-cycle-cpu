@@ -39,11 +39,11 @@ ALU_control ALUC(.ALUop(ALUOpSignal), .instr(IF_data), .ALUsel(ALUSelector));
 
 //ALU
 wire [31:0] secondValue;
-wire zeroSignal;
+wire zeroSignal, carrySignal, zeroSignal, overflowSignal, signSignal;
 wire [31:0] ALUResult;
 nMUX #(32) mux(.sel(ALUSourceSignal), .a(data_rs2), .b(Immediate), .c(secondValue));
-ALU alu(.sel(ALUSelector), .a(data_rs1), .b(secondValue), .zero(zeroSignal), .out(ALUResult));
-//prv32_ALU alu (.a(data_rs1), .b(secondValue), .shamt(), .alufn(ALUSelector), .r(ALUResult), .cf(carrySignal), .zf(zeroSignal), .vf(overflowSignal), .sf(signSignal))
+//ALU alu(.sel(ALUSelector), .a(data_rs1), .b(secondValue), .zero(zeroSignal), .out(ALUResult));
+prv32_ALU alu(.a(data_rs1), .b(secondValue), .shamt(IF_data[24:20]), .alufn(ALUSelector), .r(ALUResult), .cf(carrySignal), .zf(zeroSignal), .vf(overflowSignal), .sf(signSignal));
 
 //Branch address logic
 wire [31:0] PreShiftImmediate;
