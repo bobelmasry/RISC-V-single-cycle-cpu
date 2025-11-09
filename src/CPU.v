@@ -8,6 +8,7 @@ output reg [15:0] LED, output reg [12:0] SSD
 wire [31:0] PC_input;
 wire [31:0] PC;
 wire [31:0] PC_Add4;
+wire [31:0] PC_Next;
 wire [31:0] PC_Branch;
 Register #(32) ProgramCounter(.clk(clk), .load(1'b1), .rst(rst), .D(PC_input), .Q(PC));
 
@@ -15,8 +16,11 @@ Register #(32) ProgramCounter(.clk(clk), .load(1'b1), .rst(rst), .D(PC_input), .
 //Instruction Fetching
 wire [31:0] IF_data;
 InstrMem InstructionMemory(.addr(PC[7:2]),.data_out(IF_data));
+wire opcode = IF_data[6:0];
+wire isHalt;
+assign isHalt = (opcode == 7'b0001111 || opcode == 7'b1110011);
 
-//Constrol Signals
+//Control Signals
 wire branchSignal, memoryReadSignal, memoryToRegisterSignal, memoryWriteSignal, 
                 ALUSourceSignal, registerWriteSignal;
 wire [1:0] ALUOpSignal;
@@ -77,12 +81,20 @@ nMUX #(32) mux2(.sel(memoryToRegisterSignal), .a(ALUResult), .b(MemoryOutput), .
 //Branch decisions
 assign PC_Add4 = PC+32'd4;
 assign PC_Branch = PC + ImmediateShifted;
-nMUX #(32) BranchMux(.sel(BranchConfirm), .a(PC_Add4), .b(PC_Branch), .c(PC_input));
+wire [31:0] PC_Temp;
+// select between branch and PC+4
+nMUX #(32) BranchMux(.sel(BranchConfirm), .a(PC_Add4), .b(PC_Branch), .c(PC_Temp));
+// Then, if halt, keep PC
+nMUX #(32) HaltMux(.sel(isHalt),
+    .a(PC),       // current PC
+    .b(PC_Temp),  // normal branch/increment
+    .c(PC_input)
+);
 
 //Concatenation of control signals
 wire [15:0] controlSignalsCombined;
-assign controlSignalsCombined = { 2'b00 + branchSignal + memoryReadSignal + memoryToRegisterSignal + memoryWriteSignal + 
-                ALUSourceSignal + registerWriteSignal + ALUOpSignal + ALUSelector + zeroSignal + BranchConfirm};
+assign controlSignalsCombined = isHalt ? 16'bz : { 2'b00, branchSignal, memoryReadSignal, memoryToRegisterSignal, memoryWriteSignal, 
+                ALUSourceSignal, registerWriteSignal, ALUOpSignal, ALUSelector, zeroSignal, BranchConfirm };
 
 always @(*) begin
     case (LEDSel)
