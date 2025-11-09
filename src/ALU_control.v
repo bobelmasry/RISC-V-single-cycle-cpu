@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 
 module ALU_control(
-    input [1:0] ALUop, [31:0] instr, output reg [3:0] ALUsel
+    input [1:0] ALUop, input [31:0] instr, output reg [3:0] ALUsel
     );
     
     wire [2:0] fourteenToTwelve = instr[14:12];

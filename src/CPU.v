@@ -2,8 +2,8 @@
 
 
 module main(
-input clk, rst, SSDClk, [1:0] LEDSel, [3:0] SSDSel,     
-output reg [15:0] LED, reg [12:0] SSD
+input clk, rst, SSDClk, input [1:0] LEDSel, input [3:0] SSDSel,     
+output reg [15:0] LED, output reg [12:0] SSD
     );
 wire [31:0] PC_input;
 wire [31:0] PC;
@@ -51,7 +51,6 @@ assign PreShiftImmediate = {Immediate[31], Immediate[31:1]};
 wire [31:0] ImmediateShifted;
 wire BranchConfirm;
 assign BranchConfirm = (branchSignal & zeroSignal);
-nBitShift #(32) shifter(.in(PreShiftImmediate), .out(ImmediateShifted));
 
 
 // Memory

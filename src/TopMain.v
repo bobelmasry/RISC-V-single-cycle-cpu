@@ -1,8 +1,8 @@
 `timescale 1ns / 1ps
 
 module TopMain(
-    input clk, rst, SSDClk, [1:0] LEDSel, [3:0] SSDSel,
-    output [15:0] LED, [6:0] LED_out, [3:0] Anode
+    input clk, rst, SSDClk, input [1:0] LEDSel, input [3:0] SSDSel,
+    output [15:0] LED, output [6:0] LED_out, output [3:0] Anode
 );
     wire btn1, btn2;
     wire [12:0] SSD;
