@@ -17,11 +17,11 @@ wire [31:0] IF_data;
 InstrMem InstructionMemory(.addr(PC[7:2]),.data_out(IF_data));
 
 //Constrol Signals
-wire branchSignal, memoryReadSignal, memroyToRegisterSignal, memoryWriteSignal, 
+wire branchSignal, memoryReadSignal, memoryToRegisterSignal, memoryWriteSignal, 
                 ALUSourceSignal, registerWriteSignal;
 wire [1:0] ALUOpSignal;
 control ControlSignals(.instr(IF_data), .branch(branchSignal), 
-                        .memRead(memoryReadSignal), .MemtoReg(memroyToRegisterSignal), .MemWrite(memoryWriteSignal),
+                        .memRead(memoryReadSignal), .MemtoReg(memoryToRegisterSignal), .MemWrite(memoryWriteSignal),
                         .ALUSrc(ALUSourceSignal), .RegWrite(registerWriteSignal), .ALUOp(ALUOpSignal) );
 //Instruction Decoding
 wire [31:0] dataWrite, data_rs1, data_rs2;
@@ -38,12 +38,22 @@ wire [3:0] ALUSelector;
 ALU_control ALUC(.ALUop(ALUOpSignal), .instr(IF_data), .ALUsel(ALUSelector));
 
 //ALU
+wire [4:0] shamt = IF_data[24:20];
 wire [31:0] secondValue;
 wire zeroSignal;
 wire [31:0] ALUResult;
 nMUX #(32) mux(.sel(ALUSourceSignal), .a(data_rs2), .b(Immediate), .c(secondValue));
-ALU alu(.sel(ALUSelector), .a(data_rs1), .b(secondValue), .zero(zeroSignal), .out(ALUResult));
-//prv32_ALU alu (.a(data_rs1), .b(secondValue), .shamt(), .alufn(ALUSelector), .r(ALUResult), .cf(carrySignal), .zf(zeroSignal), .vf(overflowSignal), .sf(signSignal))
+prv32_ALU alu (
+    .a(data_rs1),
+    .b(secondValue),
+    .shamt(shamt),
+    .alufn(ALUSelector),       // ALUOp
+    .r(ALUResult),
+    .cf(carrySignal),
+    .zf(zeroSignal),
+    .vf(overflowSignal),
+    .sf(signSignal)
+);
 
 //Branch address logic
 wire [31:0] PreShiftImmediate;
@@ -61,7 +71,7 @@ DataMem DataMemory(.clk(clk), .MemRead(memoryReadSignal), .MemWrite(memoryWriteS
                     .addr(MemoryAddress), .data_in(data_rs2), .data_out(MemoryOutput));
 
 //Data Write result
-nMUX #(32) mux2(.sel(memroyToRegisterSignal), .a(ALUResult), .b(MemoryOutput), .c(dataWrite));
+nMUX #(32) mux2(.sel(memoryToRegisterSignal), .a(ALUResult), .b(MemoryOutput), .c(dataWrite));
 
 
 //Branch decisions
@@ -71,7 +81,7 @@ nMUX #(32) BranchMux(.sel(BranchConfirm), .a(PC_Add4), .b(PC_Branch), .c(PC_inpu
 
 //Concatenation of control signals
 wire [15:0] controlSignalsCombined;
-assign controlSignalsCombined = { 2'b00 + branchSignal + memoryReadSignal + memroyToRegisterSignal + memoryWriteSignal + 
+assign controlSignalsCombined = { 2'b00 + branchSignal + memoryReadSignal + memoryToRegisterSignal + memoryWriteSignal + 
                 ALUSourceSignal + registerWriteSignal + ALUOpSignal + ALUSelector + zeroSignal + BranchConfirm};
 
 always @(*) begin
