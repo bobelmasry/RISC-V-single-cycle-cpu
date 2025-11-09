@@ -20,7 +20,7 @@ wire opcode = IF_data[6:0];
 wire isHalt;
 assign isHalt = (opcode == 7'b0001111 || opcode == 7'b1110011);
 //Control Signals
-wire branchSignal, memoryReadSignal, memoryToRegisterSignal, memoryWriteSignal, 
+wire branchSignal, memoryReadSignal, s, memoryWriteSignal, memoryToRegisterSignal,
                 ALUSourceSignal, registerWriteSignal, jumpSignal;
 wire [1:0] ALUOpSignal;
 control ControlSignals(.instr(IF_data), .branch(branchSignal), .jump(jumpSignal),
@@ -60,7 +60,6 @@ prv32_ALU alu (
 //Branch address logic
 wire [31:0] PreShiftImmediate;
 assign PreShiftImmediate = {Immediate[31], Immediate[31:1]};
-wire [31:0] ImmediateShifted;
 wire BranchConfirm;
 assign BranchConfirm = (branchSignal & zeroSignal);
 
@@ -78,14 +77,14 @@ nMUX #(32) mux2(.sel(memoryToRegisterSignal), .a(ALUResult), .b(MemoryOutput), .
 
 //Branch decisions
 assign PC_Add4 = PC+32'd4;
-assign PC_Branch = PC + ImmediateShifted;
+assign PC_Branch = PC + Immediate;
 wire [31:0] PC_Temp;
 // select between branch and PC+4
 nMUX #(32) BranchMux(.sel(BranchConfirm), .a(PC_Add4), .b(PC_Branch), .c(PC_Temp));
 // Then, if halt, keep PC
 nMUX #(32) HaltMux(.sel(isHalt),
-    .a(PC),       // current PC
-    .b(PC_Temp),  // normal branch/increment
+    .a(PC_Temp),       // Normal Branch
+    .b(PC),  // Current PC
     .c(PC_input)
 );
 
@@ -137,7 +136,7 @@ always @(*) begin
             SSD = Immediate[12:0];
         end
         4'b1000: begin
-            SSD = ImmediateShifted[12:0];
+            SSD = Immediate[12:0];
         end
         4'b1001: begin
             SSD = secondValue[12:0];

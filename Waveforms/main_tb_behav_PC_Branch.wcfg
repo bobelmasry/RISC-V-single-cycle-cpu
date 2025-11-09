@@ -11,15 +11,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="288.283 ns"></ZoomStartTime>
-      <ZoomEndTime time="302.344 ns"></ZoomEndTime>
-      <Cursor1Time time="300.000 ns"></Cursor1Time>
+      <ZoomStartTime time="0.000 ns"></ZoomStartTime>
+      <ZoomEndTime time="103.001 ns"></ZoomEndTime>
+      <Cursor1Time time="0.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="321"></NameColumnWidth>
-      <ValueColumnWidth column_width="250"></ValueColumnWidth>
+      <ValueColumnWidth column_width="242"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="46" />
+   <WVObjectSize size="40" />
    <wvobject fp_name="/main_tb/clk" type="logic">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
@@ -83,11 +83,6 @@
       <obj_property name="ObjectShortName">Immediate[31:0]</obj_property>
       <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/ImmediateShifted" type="array">
-      <obj_property name="ElementShortName">ImmediateShifted[31:0]</obj_property>
-      <obj_property name="ObjectShortName">ImmediateShifted[31:0]</obj_property>
-      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-   </wvobject>
    <wvobject fp_name="/main_tb/MAIN/secondValue" type="array">
       <obj_property name="ElementShortName">secondValue[31:0]</obj_property>
       <obj_property name="ObjectShortName">secondValue[31:0]</obj_property>
@@ -118,25 +113,6 @@
    <wvobject fp_name="/main_tb/MAIN/ALUC/ALUsel" type="array">
       <obj_property name="ElementShortName">ALUsel[3:0]</obj_property>
       <obj_property name="ObjectShortName">ALUsel[3:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/alu/Or/a" type="array">
-      <obj_property name="ElementShortName">a[31:0]</obj_property>
-      <obj_property name="ObjectShortName">a[31:0]</obj_property>
-      <obj_property name="Radix">BINARYRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/alu/Or/b" type="array">
-      <obj_property name="ElementShortName">b[31:0]</obj_property>
-      <obj_property name="ObjectShortName">b[31:0]</obj_property>
-      <obj_property name="Radix">BINARYRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/alu/Or/out" type="array">
-      <obj_property name="ElementShortName">out[31:0]</obj_property>
-      <obj_property name="ObjectShortName">out[31:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/alu/Or/N" type="array">
-      <obj_property name="ElementShortName">N[31:0]</obj_property>
-      <obj_property name="ObjectShortName">N[31:0]</obj_property>
-      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/main_tb/MAIN/ControlSignals/branch" type="logic">
       <obj_property name="ElementShortName">branch</obj_property>
@@ -187,10 +163,6 @@
    <wvobject fp_name="/main_tb/MAIN/memoryReadSignal" type="logic">
       <obj_property name="ElementShortName">memoryReadSignal</obj_property>
       <obj_property name="ObjectShortName">memoryReadSignal</obj_property>
-   </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/memroyToRegisterSignal" type="logic">
-      <obj_property name="ElementShortName">memroyToRegisterSignal</obj_property>
-      <obj_property name="ObjectShortName">memroyToRegisterSignal</obj_property>
    </wvobject>
    <wvobject fp_name="/main_tb/MAIN/memoryWriteSignal" type="logic">
       <obj_property name="ElementShortName">memoryWriteSignal</obj_property>
