@@ -11,15 +11,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="242.350 ns"></ZoomStartTime>
-      <ZoomEndTime time="331.701 ns"></ZoomEndTime>
-      <Cursor1Time time="280.000 ns"></Cursor1Time>
+      <ZoomStartTime time="288.283 ns"></ZoomStartTime>
+      <ZoomEndTime time="302.344 ns"></ZoomEndTime>
+      <Cursor1Time time="300.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="396"></NameColumnWidth>
-      <ValueColumnWidth column_width="116"></ValueColumnWidth>
+      <NameColumnWidth column_width="321"></NameColumnWidth>
+      <ValueColumnWidth column_width="250"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="27" />
+   <WVObjectSize size="46" />
    <wvobject fp_name="/main_tb/clk" type="logic">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
@@ -31,7 +31,7 @@
    <wvobject fp_name="/main_tb/MAIN/IF_data" type="array">
       <obj_property name="ElementShortName">IF_data[31:0]</obj_property>
       <obj_property name="ObjectShortName">IF_data[31:0]</obj_property>
-      <obj_property name="Radix">BINARYRADIX</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/main_tb/MAIN/controlSignalsCombined" type="array">
       <obj_property name="ElementShortName">controlSignalsCombined[15:0]</obj_property>
@@ -41,46 +41,46 @@
    <wvobject fp_name="/main_tb/MAIN/PC" type="array">
       <obj_property name="ElementShortName">PC[31:0]</obj_property>
       <obj_property name="ObjectShortName">PC[31:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/main_tb/MAIN/PC_Add4" type="array">
       <obj_property name="ElementShortName">PC_Add4[31:0]</obj_property>
       <obj_property name="ObjectShortName">PC_Add4[31:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/main_tb/MAIN/PC_Branch" type="array">
       <obj_property name="ElementShortName">PC_Branch[31:0]</obj_property>
       <obj_property name="ObjectShortName">PC_Branch[31:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/main_tb/MAIN/PC_input" type="array">
       <obj_property name="ElementShortName">PC_input[31:0]</obj_property>
       <obj_property name="ObjectShortName">PC_input[31:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/main_tb/MAIN/data_rs1" type="array">
       <obj_property name="ElementShortName">data_rs1[31:0]</obj_property>
       <obj_property name="ObjectShortName">data_rs1[31:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/main_tb/MAIN/data_rs2" type="array">
       <obj_property name="ElementShortName">data_rs2[31:0]</obj_property>
       <obj_property name="ObjectShortName">data_rs2[31:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/main_tb/MAIN/dataWrite" type="array">
       <obj_property name="ElementShortName">dataWrite[31:0]</obj_property>
       <obj_property name="ObjectShortName">dataWrite[31:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/Immediate" type="array">
-      <obj_property name="ElementShortName">Immediate[31:0]</obj_property>
-      <obj_property name="ObjectShortName">Immediate[31:0]</obj_property>
       <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/main_tb/MAIN/PreShiftImmediate" type="array">
       <obj_property name="ElementShortName">PreShiftImmediate[31:0]</obj_property>
       <obj_property name="ObjectShortName">PreShiftImmediate[31:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/Immediate" type="array">
+      <obj_property name="ElementShortName">Immediate[31:0]</obj_property>
+      <obj_property name="ObjectShortName">Immediate[31:0]</obj_property>
       <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/main_tb/MAIN/ImmediateShifted" type="array">
@@ -91,29 +91,21 @@
    <wvobject fp_name="/main_tb/MAIN/secondValue" type="array">
       <obj_property name="ElementShortName">secondValue[31:0]</obj_property>
       <obj_property name="ObjectShortName">secondValue[31:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/main_tb/MAIN/ALUResult" type="array">
       <obj_property name="ElementShortName">ALUResult[31:0]</obj_property>
       <obj_property name="ObjectShortName">ALUResult[31:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/main_tb/MAIN/MemoryOutput" type="array">
       <obj_property name="ElementShortName">MemoryOutput[31:0]</obj_property>
       <obj_property name="ObjectShortName">MemoryOutput[31:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/main_tb/MAIN/branchSignal" type="logic">
       <obj_property name="ElementShortName">branchSignal</obj_property>
       <obj_property name="ObjectShortName">branchSignal</obj_property>
-   </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/zeroSignal" type="logic">
-      <obj_property name="ElementShortName">zeroSignal</obj_property>
-      <obj_property name="ObjectShortName">zeroSignal</obj_property>
-   </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/BranchConfirm" type="logic">
-      <obj_property name="ElementShortName">BranchConfirm</obj_property>
-      <obj_property name="ObjectShortName">BranchConfirm</obj_property>
    </wvobject>
    <wvobject fp_name="/main_tb/MAIN/data_rs1" type="array">
       <obj_property name="ElementShortName">data_rs1[31:0]</obj_property>
@@ -145,5 +137,94 @@
       <obj_property name="ElementShortName">N[31:0]</obj_property>
       <obj_property name="ObjectShortName">N[31:0]</obj_property>
       <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/ControlSignals/branch" type="logic">
+      <obj_property name="ElementShortName">branch</obj_property>
+      <obj_property name="ObjectShortName">branch</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/ControlSignals/memRead" type="logic">
+      <obj_property name="ElementShortName">memRead</obj_property>
+      <obj_property name="ObjectShortName">memRead</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/ControlSignals/MemtoReg" type="logic">
+      <obj_property name="ElementShortName">MemtoReg</obj_property>
+      <obj_property name="ObjectShortName">MemtoReg</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/ControlSignals/MemWrite" type="logic">
+      <obj_property name="ElementShortName">MemWrite</obj_property>
+      <obj_property name="ObjectShortName">MemWrite</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/ControlSignals/ALUSrc" type="logic">
+      <obj_property name="ElementShortName">ALUSrc</obj_property>
+      <obj_property name="ObjectShortName">ALUSrc</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/ControlSignals/RegWrite" type="logic">
+      <obj_property name="ElementShortName">RegWrite</obj_property>
+      <obj_property name="ObjectShortName">RegWrite</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/ControlSignals/ALUOp" type="array">
+      <obj_property name="ElementShortName">ALUOp[1:0]</obj_property>
+      <obj_property name="ObjectShortName">ALUOp[1:0]</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/ALUC/ALUsel" type="array">
+      <obj_property name="ElementShortName">ALUsel[3:0]</obj_property>
+      <obj_property name="ObjectShortName">ALUsel[3:0]</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/zeroSignal" type="logic">
+      <obj_property name="ElementShortName">zeroSignal</obj_property>
+      <obj_property name="ObjectShortName">zeroSignal</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/BranchConfirm" type="logic">
+      <obj_property name="ElementShortName">BranchConfirm</obj_property>
+      <obj_property name="ObjectShortName">BranchConfirm</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/branchSignal" type="logic">
+      <obj_property name="ElementShortName">branchSignal</obj_property>
+      <obj_property name="ObjectShortName">branchSignal</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/memoryReadSignal" type="logic">
+      <obj_property name="ElementShortName">memoryReadSignal</obj_property>
+      <obj_property name="ObjectShortName">memoryReadSignal</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/memroyToRegisterSignal" type="logic">
+      <obj_property name="ElementShortName">memroyToRegisterSignal</obj_property>
+      <obj_property name="ObjectShortName">memroyToRegisterSignal</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/memoryWriteSignal" type="logic">
+      <obj_property name="ElementShortName">memoryWriteSignal</obj_property>
+      <obj_property name="ObjectShortName">memoryWriteSignal</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/ALUSourceSignal" type="logic">
+      <obj_property name="ElementShortName">ALUSourceSignal</obj_property>
+      <obj_property name="ObjectShortName">ALUSourceSignal</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/registerWriteSignal" type="logic">
+      <obj_property name="ElementShortName">registerWriteSignal</obj_property>
+      <obj_property name="ObjectShortName">registerWriteSignal</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/ALUOpSignal" type="array">
+      <obj_property name="ElementShortName">ALUOpSignal[1:0]</obj_property>
+      <obj_property name="ObjectShortName">ALUOpSignal[1:0]</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/ALUSelector" type="array">
+      <obj_property name="ElementShortName">ALUSelector[3:0]</obj_property>
+      <obj_property name="ObjectShortName">ALUSelector[3:0]</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/zeroSignal" type="logic">
+      <obj_property name="ElementShortName">zeroSignal</obj_property>
+      <obj_property name="ObjectShortName">zeroSignal</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/BranchConfirm" type="logic">
+      <obj_property name="ElementShortName">BranchConfirm</obj_property>
+      <obj_property name="ObjectShortName">BranchConfirm</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/controlSignalsCombined" type="array">
+      <obj_property name="ElementShortName">controlSignalsCombined[15:0]</obj_property>
+      <obj_property name="ObjectShortName">controlSignalsCombined[15:0]</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
    </wvobject>
 </wave_config>

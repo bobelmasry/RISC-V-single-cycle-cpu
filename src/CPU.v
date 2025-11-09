@@ -71,8 +71,8 @@ nMUX #(32) BranchMux(.sel(BranchConfirm), .a(PC_Add4), .b(PC_Branch), .c(PC_inpu
 
 //Concatenation of control signals
 wire [15:0] controlSignalsCombined;
-assign controlSignalsCombined = { 2'b00 + branchSignal + memoryReadSignal + memroyToRegisterSignal + memoryWriteSignal + 
-                ALUSourceSignal + registerWriteSignal + ALUOpSignal + ALUSelector + zeroSignal + BranchConfirm};
+assign controlSignalsCombined = { 2'b00, branchSignal, memoryReadSignal, memroyToRegisterSignal, memoryWriteSignal, 
+                ALUSourceSignal, registerWriteSignal, ALUOpSignal, ALUSelector, zeroSignal, BranchConfirm};
 
 always @(*) begin
     case (LEDSel)
