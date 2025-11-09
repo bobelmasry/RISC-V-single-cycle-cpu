@@ -18,9 +18,9 @@ InstrMem InstructionMemory(.addr(PC[7:2]),.data_out(IF_data));
 
 //Constrol Signals
 wire branchSignal, memoryReadSignal, memroyToRegisterSignal, memoryWriteSignal, 
-                ALUSourceSignal, registerWriteSignal;
+                ALUSourceSignal, registerWriteSignal, jumpSignal;
 wire [1:0] ALUOpSignal;
-control ControlSignals(.instr(IF_data), .branch(branchSignal), 
+control ControlSignals(.instr(IF_data), .branch(branchSignal), .jump(jumpSignal),
                         .memRead(memoryReadSignal), .MemtoReg(memroyToRegisterSignal), .MemWrite(memoryWriteSignal),
                         .ALUSrc(ALUSourceSignal), .RegWrite(registerWriteSignal), .ALUOp(ALUOpSignal) );
 //Instruction Decoding
