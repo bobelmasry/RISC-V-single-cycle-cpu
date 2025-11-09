@@ -43,7 +43,7 @@ ALU_control ALUC(.ALUop(ALUOpSignal), .instr(IF_data), .ALUsel(ALUSelector));
 //ALU
 wire [4:0] shamt = IF_data[24:20];
 wire [31:0] secondValue;
-wire zeroSignal, carrySignal, zeroSignal, overflowSignal, signSignal;
+wire zeroSignal, carrySignal, overflowSignal, signSignal;
 wire [31:0] ALUResult;
 nMUX #(32) mux(.sel(ALUSourceSignal), .a(data_rs2), .b(Immediate), .c(secondValue));
 prv32_ALU alu (
