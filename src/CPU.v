@@ -17,6 +17,7 @@ Register #(32) ProgramCounter(.clk(clk), .load(1'b1), .rst(rst), .D(PC_input), .
 wire [31:0] IF_data;
 InstrMem InstructionMemory(.addr(PC[7:2]),.data_out(IF_data));
 wire opcode = IF_data[6:0];
+wire funct3 = IF_data[14:12];
 wire isHalt;
 assign isHalt = (opcode == 7'b0001111 || opcode == 7'b1110011);
 //Control Signals
@@ -69,7 +70,7 @@ wire [5:0] MemoryAddress;
 wire [31:0] MemoryOutput;
 assign MemoryAddress = ALUResult[7:2];
 DataMem DataMemory(.clk(clk), .MemRead(memoryReadSignal), .MemWrite(memoryWriteSignal),
-                    .addr(MemoryAddress), .data_in(data_rs2), .data_out(MemoryOutput));
+                    .addr(MemoryAddress), .data_in(data_rs2), .data_out(MemoryOutput) .funct3(funct3));
 
 //Data Write result
 nMUX #(32) mux2(.sel(memoryToRegisterSignal), .a(ALUResult), .b(MemoryOutput), .c(dataWrite));
