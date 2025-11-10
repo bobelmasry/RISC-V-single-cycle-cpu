@@ -9,6 +9,8 @@ wire [31:0] PC_input;
 wire [31:0] PC;
 wire [31:0] PC_Add4;
 wire [31:0] PC_Next;
+wire [31:0] PC_Imm;
+wire [31:0] PC_RS1_Imm;
 wire [31:0] PC_Branch;
 Register #(32) ProgramCounter(.clk(clk), .load(1'b1), .rst(rst), .D(PC_input), .Q(PC));
 
@@ -82,9 +84,10 @@ BranchControlUnit BCU(.funct3(IF_data[14:12]), .zeroSignal(zeroSignal), .carrySi
 
 
 // Memory
-wire [5:0] MemoryAddress;
+// Note to self - the byte addressible system is broken atm, need to look further into fixing it
+wire [7:0] MemoryAddress;
 wire [31:0] MemoryOutput;
-assign MemoryAddress = ALUResult[7:2];
+assign MemoryAddress = ALUResult[7:0];
 DataMem DataMemory(.clk(clk), .MemRead(memoryReadSignal), .MemWrite(memoryWriteSignal),
                     .addr(MemoryAddress), .data_in(data_rs2), .data_out(MemoryOutput), .funct3(funct3));
 
@@ -100,7 +103,9 @@ nMUX #(32) muxWriteData(.sel(SpecialInstructionCodes[2]), .b(medData), .a(specia
 
 //Branch decisions
 assign PC_Add4 = PC+32'd4;
-assign PC_Branch = PC + Immediate;
+assign PC_Imm = PC + Immediate;
+assign PC_RS1_Imm = data_rs1 + Immediate;
+assign PC_Branch = (opcode == 7'b1101111 || opcode == 7'b1100111) ? PC_RS1_Imm : PC_Imm;
 wire [31:0] PC_Temp;
 // select between branch and PC+4
 nMUX #(32) BranchMux(.sel(BranchConfirm), .a(PC_Add4), .b(PC_Branch), .c(PC_Temp));

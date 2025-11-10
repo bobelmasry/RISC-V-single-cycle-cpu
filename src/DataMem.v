@@ -4,7 +4,7 @@ module DataMem(
     input clk,
     input MemRead,
     input MemWrite,
-    input [5:0] addr,
+    input [7:0] addr,
     input [31:0] data_in,
     input [2:0] funct3,           // determines byte, half, or word
     output [31:0] data_out
@@ -50,7 +50,7 @@ module DataMem(
     initial begin
         for (i=0; i<256; i=i+1) mem[i] = 8'b0; // clear all bytes
         mem[0] = 17;
-        mem[1] = 9;
-        mem[2] = 25;
+        mem[4] = 9;
+        mem[8] = 25;
     end
 endmodule

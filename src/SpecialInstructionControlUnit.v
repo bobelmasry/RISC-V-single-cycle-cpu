@@ -11,7 +11,7 @@ input [4:0] opcode, output reg [2:0] sel
             `OPCODE_JAL: sel = 3'b110; //JAL special code
             `OPCODE_LUI: sel = 3'b100; // LUI special code 
             `OPCODE_AUIPC: sel = 3'b101; //AUIPC special code 
-            deault: sel = 3'b000;
+            default: sel = 3'b000;
         endcase
     end
 endmodule
