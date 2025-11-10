@@ -10,6 +10,7 @@ output reg BranchConfirm
             3'b001: BranchConfirm = (branchSignal & ~zeroSignal); //BGE
             3'b1x0: BranchConfirm = (branchSignal & (signSignal != overflowSignal)); // BLT & BLTU
             3'b1x1: BranchConfirm = (branchSignal & (signSignal == overflowSignal)); // BGE & BGEU
+            default: BranchConfirm = 0;
         endcase
     end
 endmodule
