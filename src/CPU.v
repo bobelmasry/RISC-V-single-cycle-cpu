@@ -58,6 +58,19 @@ prv32_ALU alu (
     .vf(overflowSignal),
     .sf(signSignal)
 );
+
+//Special instructions - AUIPC, LUI, JAL, JALR
+wire [31:0] ShiftedImmedaite;
+shifter SpecialShifter(
+    .a(Immediate), .shamt(5'b01100),
+    .type(2'b00),
+    .r(ShiftedImmediate)
+);
+wire [31:0] specialInstructionResult;
+wire [2:0] SpecialInstructionCodes;
+SpecialInstructionControlUnit SICU(.opcode(IF_data[6:2]), .sel(SpecialInstructionCodes));
+SpecialInstructionAdder SIA(.Immediate(ShiftedImmediate), 
+.PC(PC), .PC_Add4(PC_Add4), .sel(SpecialInstructionCodes[1:0]), .result(specialInstructionResult));
 //Branch address logic
 wire [31:0] PreShiftImmediate;
 assign PreShiftImmediate = {Immediate[31], Immediate[31:1]};
@@ -76,7 +89,13 @@ DataMem DataMemory(.clk(clk), .MemRead(memoryReadSignal), .MemWrite(memoryWriteS
                     .addr(MemoryAddress), .data_in(data_rs2), .data_out(MemoryOutput), .funct3(funct3));
 
 //Data Write result
-nMUX #(32) mux2(.sel(memoryToRegisterSignal), .a(ALUResult), .b(MemoryOutput), .c(dataWrite));
+
+//We will add an medium Wire to hold the data coming from the WB stage (i.e. choosing between memory and ALU
+//and comparing that to the case that we are in a special instruction)
+wire [31:0] medData;
+
+nMUX #(32) mux2(.sel(memoryToRegisterSignal), .a(ALUResult), .b(MemoryOutput), .c(medData));
+nMUX #(32) muxWriteData(.sel(SpecialInstructionCodes[2]), .b(medData), .a(specialInstructionResult), .c(dataWrite));
 
 
 //Branch decisions
