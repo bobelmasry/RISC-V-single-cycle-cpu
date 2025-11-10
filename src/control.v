@@ -63,6 +63,17 @@ always@(*) begin
         ALUSrc = 1'b1;
         RegWrite = 1'b1;
         end
+        // JAL  (J type)
+        5'b11001: begin
+        jump = 1'b1;
+        branch = 1'b0; 
+        memRead = 1'b0;
+        MemtoReg = 1'b0;
+        ALUOp = 2'b00; 
+        MemWrite = 1'b0;
+        ALUSrc = 1'b1; 
+        RegWrite = 1'b1;
+        end
         // JALR  (I type)
         5'b11011: begin
         jump = 1'b1;
@@ -79,7 +90,7 @@ always@(*) begin
         branch = 1'b0;
         memRead = 1'b0;
         MemtoReg = 1'b0;
-        ALUOp = 2'b00; 
+        ALUOp = 2'b10; 
         MemWrite = 1'b0;
         ALUSrc = 1'b0;
         RegWrite = 1'b1; 
@@ -89,7 +100,7 @@ always@(*) begin
         branch = 1'b0;
         memRead = 1'b0;
         MemtoReg = 1'b0;
-        ALUOp = 2'b00; 
+        ALUOp = 2'b10; 
         MemWrite = 1'b0;
         ALUSrc = 1'b0;
         RegWrite = 1'b1; 
