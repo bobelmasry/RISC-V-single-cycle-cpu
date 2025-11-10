@@ -62,7 +62,10 @@ prv32_ALU alu (
 wire [31:0] PreShiftImmediate;
 assign PreShiftImmediate = {Immediate[31], Immediate[31:1]};
 wire BranchConfirm;
-assign BranchConfirm = (branchSignal & zeroSignal);
+BranchControlUnit BCU(.funct3(IF_data[14:12]), .zeroSignal(zeroSignal), .carrySignal(carrySignal), 
+                      .overflowSignal(overflowSignal), .signSignal(signSignal), .branchSignal(branchSignal),
+                      .BranchConfirm(BranchConfirm));
+
 
 
 // Memory
@@ -70,7 +73,7 @@ wire [5:0] MemoryAddress;
 wire [31:0] MemoryOutput;
 assign MemoryAddress = ALUResult[7:2];
 DataMem DataMemory(.clk(clk), .MemRead(memoryReadSignal), .MemWrite(memoryWriteSignal),
-                    .addr(MemoryAddress), .data_in(data_rs2), .data_out(MemoryOutput) .funct3(funct3));
+                    .addr(MemoryAddress), .data_in(data_rs2), .data_out(MemoryOutput), .funct3(funct3));
 
 //Data Write result
 nMUX #(32) mux2(.sel(memoryToRegisterSignal), .a(ALUResult), .b(MemoryOutput), .c(dataWrite));
