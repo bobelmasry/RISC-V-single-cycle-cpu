@@ -12,14 +12,14 @@
    </db_ref_list>
    <zoom_setting>
       <ZoomStartTime time="0.000 ns"></ZoomStartTime>
-      <ZoomEndTime time="198.547 ns"></ZoomEndTime>
-      <Cursor1Time time="23.704 ns"></Cursor1Time>
+      <ZoomEndTime time="176.001 ns"></ZoomEndTime>
+      <Cursor1Time time="130.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="321"></NameColumnWidth>
-      <ValueColumnWidth column_width="226"></ValueColumnWidth>
+      <ValueColumnWidth column_width="218"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="31" />
+   <WVObjectSize size="38" />
    <wvobject fp_name="/main_tb/clk" type="logic">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
@@ -159,5 +159,33 @@
    <wvobject fp_name="/main_tb/MAIN/PC_Temp" type="array">
       <obj_property name="ElementShortName">PC_Temp[31:0]</obj_property>
       <obj_property name="ObjectShortName">PC_Temp[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/specialInstructionResult" type="array">
+      <obj_property name="ElementShortName">specialInstructionResult[31:0]</obj_property>
+      <obj_property name="ObjectShortName">specialInstructionResult[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/medData" type="array">
+      <obj_property name="ElementShortName">medData[31:0]</obj_property>
+      <obj_property name="ObjectShortName">medData[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/muxWriteData/sel" type="logic">
+      <obj_property name="ElementShortName">sel</obj_property>
+      <obj_property name="ObjectShortName">sel</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/muxWriteData/a" type="array">
+      <obj_property name="ElementShortName">a[31:0]</obj_property>
+      <obj_property name="ObjectShortName">a[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/muxWriteData/b" type="array">
+      <obj_property name="ElementShortName">b[31:0]</obj_property>
+      <obj_property name="ObjectShortName">b[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/muxWriteData/c" type="array">
+      <obj_property name="ElementShortName">c[31:0]</obj_property>
+      <obj_property name="ObjectShortName">c[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/muxWriteData/n" type="array">
+      <obj_property name="ElementShortName">n[31:0]</obj_property>
+      <obj_property name="ObjectShortName">n[31:0]</obj_property>
    </wvobject>
 </wave_config>
