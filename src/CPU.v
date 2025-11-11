@@ -55,7 +55,7 @@ ImmGen ImmediateGenerator(.instr(IF_data_stage), .imm(Immediate));
 
 ////////////End of ID stage
 // module Register #(parameter n = 8)(input clk, load, rst, input [n-1:0] D, output [n-1:0] Q);
-wire [63:0] ID_EX_reg;
+wire [153:0] ID_EX_reg;
 //Docs
 //[4:0] rd (IF_data[11:7])
 //[8:5] funct3+7 (IF_data[30,14:12]
@@ -83,14 +83,15 @@ wire [31:0] data_rs1_EX_stage = ID_EX_reg[104:73];
 wire [31:0] PC_EX_stage = ID_EX_reg[136:105];
 wire ALU_src_EX_stage = ID_EX_reg[144];
 wire [1:0] ALU_Op_EX_stage = ID_EX_reg[143:142];
-wire [8:0] SourceSignals_EX_stage = {ID_EX_reg[148:145], ID_EX_reg[141:137]};
+wire [6:0] SourceSignals_EX_stage = {ID_EX_reg[148:145], ID_EX_reg[141:140]};
+wire [1:0] special2BitCode_EX_stage = ID_EX_reg[148:137];
+wire special1BitCode_Ex_stage = ID_EX_reg[139];
 wire [4:0] shamt_EX_stage = ID_EX_reg[153:149];
 //ALU Control
 wire [3:0] ALUSelector;
 ALU_control ALUC(.ALUop(ALU_Op_EX_stage), .funct3to7(funct3to7_EX_stage), .ALUsel(ALUSelector));
 
 //ALU
-wire [4:0] shamt = IF_data[24:20];
 wire [31:0] secondValue;
 wire zeroSignal, carrySignal, overflowSignal, signSignal;
 wire [31:0] ALUResult;
@@ -110,33 +111,62 @@ prv32_ALU alu (
 //Special instructions - AUIPC, LUI, JAL, JALR
 wire [31:0] ShiftedImmedaite;
 shifter SpecialShifter(
-    .a(Immediate), .shamt(5'b01100),
+    .a(Immediate_EX_stage), .shamt(5'b01100),
     .type(2'b00),
     .r(ShiftedImmediate)
 );
+assign PC_Add4_EX_stage = PC_EX_stage+32'd4;
 wire [31:0] specialInstructionResult;
 SpecialInstructionAdder SIA(.Immediate(ShiftedImmediate), 
-.PC(PC), .PC_Add4(PC_Add4), .sel(SpecialInstructionCodes[1:0]), .result(specialInstructionResult));
-//Branch address logic
-wire [31:0] PreShiftImmediate;
-assign PreShiftImmediate = {Immediate[31], Immediate[31:1]};
+.PC(PC_EX_stage), .PC_Add4(PC_Add4_EX_stage), .sel(special2BitCode_EX_stage), .result(specialInstructionResult));
+
+//Choose between special instruction or ALU result to be written
+wire [31:0] ALUorSpecialResult_EX_stage;
+nMUX #(32) muxALUorSpecialData(.sel(special1BitCode_Ex_stage), .a(ALUResult), .b(specialInstructionResult), .c(ALUorSpecialResult_EX_stage));
+
+assign PC_Imm_EX_stage = PC_EX_stage + Immediate_EX_stage;
+assign PC_RS1_Imm_EX_stage = data_rs1_EX_stage + Immediate_EX_stage;
+assign PC_Branch_EX_stage = (opcode == 7'b1101111 || opcode == 7'b1100111) ? PC_RS1_Imm_EX_stage : PC_Imm_EX_stage;
+
+//End of execution stage
+// module Register #(parameter n = 8)(input clk, load, rst, input [n-1:0] D, output [n-1:0] Q);
+wire [114:0] EX_MEM_reg;
+//Docs
+//[4:0] rd rd_EX_stage
+//[36:5] rs2 data_rs2_EX_stage
+//[68:37] ALUorSpecialResult ALUorSpecialResult_EX_stage
+//[72:69] ALUBranchSignals {zero, sign, carry, overflow}
+//[104:73] PC_Branch PC_Branch_EX_stage
+//[111:105] Controls SourceSignals_EX_stage
+//[114:112] funct3 funct3to7_EX_stage[2:0]
+Register #(115) RG_EX_MEM(.clk(clk), .load(1'b1), .rst(rst), 
+.D({
+funct3to7_EX_stage[2:0], SourceSignals_EX_stage, PC_Branch_EX_stage, zeroSignal, carrySignal, overflowSignal, signSignal,
+ALUorSpecialResult_EX_stage, data_rs2_EX_stage, rd_EX_stage
+}), 
+.Q(EX_MEM_reg)); 
+//start of memroy stage
+wire [4:0] rd_MEM_stage = EX_MEM_reg[4:0];
+wire [31:0] rs2_MEM_stage = EX_MEM_reg[36:5];
+wire [31:0] ALUorSpecialResult_MEM_stage = EX_MEM_reg[68:37];
+wire [3:0] ALU_branch_MEM_stage = EX_MEM_reg[68:69];
+// branch controls
+//Branch address logic for Exexution stage
 wire BranchConfirm;
-BranchControlUnit BCU(.funct3(IF_data[14:12]), .zeroSignal(zeroSignal), .carrySignal(carrySignal), 
+BranchControlUnit BCU(.funct3(funct3to7_EX_stage[2:0]), .zeroSignal(zeroSignal), .carrySignal(carrySignal), 
                       .overflowSignal(overflowSignal), .signSignal(signSignal), .branchSignal(branchSignal),
                       .BranchConfirm(BranchConfirm));
 
-
-//End of execution stage
-
-
-//start of memroy stage
 // Memory
 wire [7:0] MemoryAddress;
 wire [31:0] MemoryOutput;
 assign MemoryAddress = ALUResult[7:0];
 DataMem DataMemory(.clk(clk), .MemRead(memoryReadSignal), .MemWrite(memoryWriteSignal),
                     .addr(MemoryAddress), .data_in(data_rs2), .data_out(MemoryOutput), .funct3(funct3));
+//End of memory stage
 
+
+///Start of Write back
 //Data Write result
 
 //We will add an medium Wire to hold the data coming from the WB stage (i.e. choosing between memory and ALU
@@ -144,14 +174,9 @@ DataMem DataMemory(.clk(clk), .MemRead(memoryReadSignal), .MemWrite(memoryWriteS
 wire [31:0] medData;
 
 nMUX #(32) mux2(.sel(memoryToRegisterSignal), .a(ALUResult), .b(MemoryOutput), .c(medData));
-nMUX #(32) muxWriteData(.sel(SpecialInstructionCodes[2]), .a(medData), .b(specialInstructionResult), .c(dataWrite));
 
 
 //Branch decisions
-assign PC_Add4 = PC+32'd4;
-assign PC_Imm = PC + Immediate;
-assign PC_RS1_Imm = data_rs1 + Immediate;
-assign PC_Branch = (opcode == 7'b1101111 || opcode == 7'b1100111) ? PC_RS1_Imm : PC_Imm;
 wire [31:0] PC_Temp;
 // select between branch and PC+4
 nMUX #(32) BranchMux(.sel(BranchConfirm), .a(PC_Add4), .b(PC_Branch), .c(PC_Temp));
