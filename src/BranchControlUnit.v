@@ -8,9 +8,10 @@ output reg BranchConfirm
         casex (funct3)
             3'b000: BranchConfirm = (branchSignal & zeroSignal); //BEQ
             3'b001: BranchConfirm = (branchSignal & ~zeroSignal); //BGE
-            //Note to self - the unsigned branching system is not developed now. Will work on it later
-            3'b1x0: BranchConfirm = (branchSignal & (signSignal != overflowSignal)); // BLT & BLTU
-            3'b1x1: BranchConfirm = (branchSignal & (signSignal == overflowSignal)); // BGE & BGEU
+            3'b100: BranchConfirm = (branchSignal & (signSignal != overflowSignal)); // BLT 
+            3'b101: BranchConfirm = (branchSignal & (signSignal == overflowSignal)); // BGE 
+            3'b110: BranchConfirm = (branchSignal & ~carrySignal); // BLTU
+            3'b111: BranchConfirm = (branchSignal & carrySignal); // BGEU
             default: BranchConfirm = 0;
         endcase
     end

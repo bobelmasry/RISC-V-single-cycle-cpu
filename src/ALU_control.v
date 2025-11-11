@@ -1,11 +1,11 @@
 `timescale 1ns / 1ps
 
 module ALU_control(
-    input [1:0] ALUop, input [31:0] instr, output reg [3:0] ALUsel
+    input [1:0] ALUop, input [3:0] funct3to7, output reg [3:0] ALUsel
     );
     
-    wire [2:0] fourteenToTwelve = instr[14:12];
-    wire thirty = instr[30];
+    wire [2:0] fourteenToTwelve = funct3to7[2:0];
+    wire thirty = funct3to7[3];
     wire [5:0] conCatInput = {ALUop, fourteenToTwelve, thirty};
     
     always@(*) begin

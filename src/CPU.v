@@ -21,38 +21,84 @@ InstrMem InstructionMemory(.addr(PC[7:2]),.data_out(IF_data));
 wire [6:0] opcode = IF_data[6:0];
 wire [2:0] funct3 = IF_data[14:12];
 wire isHalt;
+//TODO: Will add mechanism to handle halting in the IF stage. Will not add isHalt to any of the registers
+
 assign isHalt = (opcode == 7'b0001111 || opcode == 7'b1110011);
+////////////End of IF 
+wire [63:0] IF_ID_reg;
+//Docs
+//[63:32] is the PC
+//[31:0] is the IF_data
+Register #(64) RG_IF_ID(.clk(clk), .load(1'b1), .rst(rst), .D({PC, IF_data}), .Q(IF_ID_reg)); 
+////////////Start of ID
+wire [31:0] PC_ID_stage = IF_ID_reg[63:32];
+wire [31:0] IF_data_stage = IF_ID_reg[31:0];
 //Control Signals
-wire branchSignal, memoryReadSignal, s, memoryWriteSignal, memoryToRegisterSignal,
+wire branchSignal, memoryReadSignal, memoryWriteSignal, memoryToRegisterSignal,
                 ALUSourceSignal, registerWriteSignal, jumpSignal;
 wire [1:0] ALUOpSignal;
-control ControlSignals(.instr(IF_data), .branch(branchSignal), .jump(jumpSignal),
+control ControlSignals(.instr(IF_data_stage), .branch(branchSignal), .jump(jumpSignal),
                         .memRead(memoryReadSignal), .MemtoReg(memoryToRegisterSignal), .MemWrite(memoryWriteSignal),
                         .ALUSrc(ALUSourceSignal), .RegWrite(registerWriteSignal), .ALUOp(ALUOpSignal) );
+
+wire [2:0] SpecialInstructionCodes;
+SpecialInstructionControlUnit SICU(.opcode(IF_data_stage[6:2]), .sel(SpecialInstructionCodes));
+
 //Instruction Decoding
 wire [31:0] dataWrite, data_rs1, data_rs2;
 RegisterFile RF(.clk(clk), .rst(rst), .regWrite(registerWriteSignal), 
-                .rs1(IF_data[19:15]), .rs2(IF_data[24:20]), .rd(IF_data[11:7]),
+                .rs1(IF_data_stage[19:15]), .rs2(IF_data_stage[24:20]), .rd(IF_data_stage[11:7]),
                 .writeData(dataWrite), .data1(data_rs1), .data2(data_rs2));
 //Immediate generator
 wire [31:0] Immediate;
-ImmGen ImmediateGenerator(.instr(IF_data), .imm(Immediate));
+ImmGen ImmediateGenerator(.instr(IF_data_stage), .imm(Immediate));
 
-
+////////////End of ID stage
+// module Register #(parameter n = 8)(input clk, load, rst, input [n-1:0] D, output [n-1:0] Q);
+wire [63:0] ID_EX_reg;
+//Docs
+//[4:0] rd (IF_data[11:7])
+//[8:5] funct3+7 (IF_data[30,14:12]
+//[40:9] Immediate
+//[72:41] data_rs2
+//[104:73] data_rs1
+//[136:105] PC
+//[148:137] Control signals 
+// [148:146] memory:read,write,toReg, [145] regWrite, 
+// [144:142] ALU:src,op, [141:140] PC:branch,jump, [139:137] specialInstructions 
+//[153:149] shamt
+Register #(154) RG_ID_EX(.clk(clk), .load(1'b1), .rst(rst), 
+.D({ IF_data_stage[24:20],
+memoryReadSignal, memoryWriteSignal, memoryToRegisterSignal, registerWriteSignal,
+ALUSourceSignal, ALUOpSignal, branchSignal, jumpSignal, SpecialInstructionCodes,
+PC_ID_stage, data_rs1, data_rs2, Immediate, IF_data_stage[30], IF_data_stage[14:12], IF_data_stage[11:7]
+}), 
+.Q(ID_EX_reg)); 
+////////////Start of EX stage
+wire [4:0] rd_EX_stage = ID_EX_reg[4:0];
+wire [3:0] funct3to7_EX_stage = ID_EX_reg[8:5];
+wire [31:0] Immediate_EX_stage = ID_EX_reg[40:9];
+wire [31:0] data_rs2_EX_stage = ID_EX_reg[72:41];
+wire [31:0] data_rs1_EX_stage = ID_EX_reg[104:73];
+wire [31:0] PC_EX_stage = ID_EX_reg[136:105];
+wire ALU_src_EX_stage = ID_EX_reg[144];
+wire [1:0] ALU_Op_EX_stage = ID_EX_reg[143:142];
+wire [8:0] SourceSignals_EX_stage = {ID_EX_reg[148:145], ID_EX_reg[141:137]};
+wire [4:0] shamt_EX_stage = ID_EX_reg[153:149];
 //ALU Control
 wire [3:0] ALUSelector;
-ALU_control ALUC(.ALUop(ALUOpSignal), .instr(IF_data), .ALUsel(ALUSelector));
+ALU_control ALUC(.ALUop(ALU_Op_EX_stage), .funct3to7(funct3to7_EX_stage), .ALUsel(ALUSelector));
 
 //ALU
 wire [4:0] shamt = IF_data[24:20];
 wire [31:0] secondValue;
 wire zeroSignal, carrySignal, overflowSignal, signSignal;
 wire [31:0] ALUResult;
-nMUX #(32) mux(.sel(ALUSourceSignal), .a(data_rs2), .b(Immediate), .c(secondValue));
+nMUX #(32) mux(.sel(ALU_src_EX_stage), .a(data_rs2_EX_stage), .b(Immediate_EX_stage), .c(secondValue));
 prv32_ALU alu (
-    .a(data_rs1),
+    .a(data_rs1_EX_stage),
     .b(secondValue),
-    .shamt(shamt),
+    .shamt(shamt_EX_stage),
     .alufn(ALUSelector),       // ALUOp
     .r(ALUResult),
     .cf(carrySignal),
@@ -69,8 +115,6 @@ shifter SpecialShifter(
     .r(ShiftedImmediate)
 );
 wire [31:0] specialInstructionResult;
-wire [2:0] SpecialInstructionCodes;
-SpecialInstructionControlUnit SICU(.opcode(IF_data[6:2]), .sel(SpecialInstructionCodes));
 SpecialInstructionAdder SIA(.Immediate(ShiftedImmediate), 
 .PC(PC), .PC_Add4(PC_Add4), .sel(SpecialInstructionCodes[1:0]), .result(specialInstructionResult));
 //Branch address logic
@@ -82,7 +126,10 @@ BranchControlUnit BCU(.funct3(IF_data[14:12]), .zeroSignal(zeroSignal), .carrySi
                       .BranchConfirm(BranchConfirm));
 
 
+//End of execution stage
 
+
+//start of memroy stage
 // Memory
 wire [7:0] MemoryAddress;
 wire [31:0] MemoryOutput;
