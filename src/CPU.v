@@ -19,7 +19,7 @@ wire [2:0] funct3_IF_stage = IF_data[14:12];
 wire isHalt;
 //TODO: Will add mechanism to handle halting in the IF stage. Will not add isHalt to any of the registers
 
-assign isHalt = (opcode_IF_stage == 7'b0001111 || opcode_IF_stage == 7'b1110011);
+assign isHalt = (opcode_IF_stage == 7'b0001111 || opcode_IF_stage == 7'b1110011) ? 1 : 0;
 ////////////End of IF 
 wire [63:0] IF_ID_reg;
 //Docs
@@ -70,7 +70,7 @@ Register #(159) RG_ID_EX(.clk(clk), .load(1'b1), .rst(rst),
 .D({ IF_data_ID_stage[6:2], IF_data_ID_stage[24:20],
 memoryReadSignal_ID, memoryWriteSignal_ID, memoryToRegisterSignal_ID, registerWriteSignal_ID,
 ALUSourceSignal_ID, ALUOpSignal_ID, branchSignal_ID, jumpSignal_ID, SpecialInstructionCodes_ID,
-PC_ID_stage_ID, data_rs1_ID, data_rs2_ID, Immediate_ID, IF_data_ID_stage[30], IF_data_ID_stage[14:12], IF_data_ID_stage[11:7]
+PC_ID_stage, data_rs1_ID, data_rs2_ID, Immediate_ID, IF_data_ID_stage[30], IF_data_ID_stage[14:12], IF_data_ID_stage[11:7]
 }), 
 .Q(ID_EX_reg)); 
 ////////////Start of EX stage
@@ -114,13 +114,13 @@ prv32_ALU alu (
 );
 
 //Special instructions - AUIPC, LUI, JAL, JALR
-wire [31:0] ShiftedImmedaite_EX;
+wire [31:0] ShiftedImmediate_EX;
 shifter SpecialShifter(
     .a(Immediate_EX_stage), .shamt(5'b01100),
     .type(2'b00),
     .r(ShiftedImmediate_EX)
 );
-assign PC_Add4_EX_stage = PC_EX_stage+32'd4;
+wire [31:0] PC_Add4_EX_stage = PC_EX_stage+32'd4;
 wire [31:0] specialInstructionResult_EX;
 SpecialInstructionAdder SIA(.Immediate(ShiftedImmediate_EX), 
 .PC(PC_EX_stage), .PC_Add4(PC_Add4_EX_stage), .sel(special2BitCode_EX_stage), .result(specialInstructionResult_EX));
@@ -129,9 +129,9 @@ SpecialInstructionAdder SIA(.Immediate(ShiftedImmediate_EX),
 wire [31:0] ALUorSpecialResult_EX_stage;
 nMUX #(32) muxALUorSpecialData(.sel(special1BitCode_Ex_stage), .a(ALUResult_EX), .b(specialInstructionResult_EX), .c(ALUorSpecialResult_EX_stage));
 
-assign PC_Imm_EX_stage = PC_EX_stage + Immediate_EX_stage;
-assign PC_RS1_Imm_EX_stage = data_rs1_EX_stage + Immediate_EX_stage;
-assign PC_Branch_EX_stage = (opcode_EX == 5'b11011 || opcode_EX == 5'b11001) ? PC_RS1_Imm_EX_stage : PC_Imm_EX_stage;
+wire [31:0] PC_Imm_EX_stage = PC_EX_stage + Immediate_EX_stage;
+wire [31:0] PC_RS1_Imm_EX_stage = data_rs1_EX_stage + Immediate_EX_stage;
+wire [31:0] PC_Branch_EX_stage = (opcode_EX == 5'b11011 || opcode_EX == 5'b11001) ? PC_RS1_Imm_EX_stage : PC_Imm_EX_stage;
 
 //End of execution stage
 // module Register #(parameter n = 8)(input clk, load, rst, input [n-1:0] D, output [n-1:0] Q);
@@ -193,7 +193,7 @@ DataMem DataMemory(.clk(clk), .MemRead(memRead_MEM), .MemWrite(memWrite_MEM),
                     .addr(MemoryAddress_MEM_stage), .data_in(rs2_MEM_stage), .data_out(MemoryOutput_MEM_stage), .funct3(funct3_MEM_stage));
 //End of memory stage
 // module Register #(parameter n = 8)(input clk, load, rst, input [n-1:0] D, output [n-1:0] Q);
-wire [65:0] MEM_WB_stage;
+wire [70:0] MEM_WB_reg;
 //Docs
 //[31:0] DataMem_WB_stage MemoryOutput_MEM_stage
 //[63:32] ALU_SpecialResult_WB_stage ALUorSpecialResult_MEM_stage
@@ -204,12 +204,12 @@ Register #(71) RG_MEM_WB(.clk(clk), .load(1'b1), .rst(rst),
 .D({rd_MEM_stage,
 memToReg_MEM, regWrite_MEM, ALUorSpecialResult_MEM_stage, MemoryOutput_MEM_stage
 }), 
-.Q(MEM_WB_stage)); 
-wire[31:0] DataMem_WB_stage = MEM_WB_stage[31:0];
-wire [31:0] ALU_SpecialResult_WB_stage = MEM_WB_stage[63:32] ; 
-assign RegWrite_WB_stage  = MEM_WB_stage[64];
-wire MemToReg_WB_stage  = MEM_WB_stage[65];
-assign rd_WB_stage = MEM_WB_stage[70:66];
+.Q(MEM_WB_reg)); 
+wire[31:0] DataMem_WB_stage = MEM_WB_reg[31:0];
+wire [31:0] ALU_SpecialResult_WB_stage = MEM_WB_reg[63:32] ; 
+assign RegWrite_WB_stage  = MEM_WB_reg[64];
+wire MemToReg_WB_stage  = MEM_WB_reg[65];
+assign rd_WB_stage = MEM_WB_reg[70:66];
 ///Start of Write back
 //Data Write result
 

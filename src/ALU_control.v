@@ -18,7 +18,7 @@ module ALU_control(
         6'b100001: ALUsel = 4'b0001;
         
         //Branch (useless so far)
-        6'b01xxxx: ALUsel = 4'b0110; //dummy variable
+        6'b01xxxx: ALUsel = 4'b0001; //dummy variable
         
         
         //OR

@@ -12,180 +12,359 @@
    </db_ref_list>
    <zoom_setting>
       <ZoomStartTime time="0.000 ns"></ZoomStartTime>
-      <ZoomEndTime time="176.001 ns"></ZoomEndTime>
-      <Cursor1Time time="130.000 ns"></Cursor1Time>
+      <ZoomEndTime time="206.575 ns"></ZoomEndTime>
+      <Cursor1Time time="70.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="321"></NameColumnWidth>
+      <NameColumnWidth column_width="396"></NameColumnWidth>
       <ValueColumnWidth column_width="218"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="38" />
-   <wvobject fp_name="/main_tb/clk" type="logic">
+   <WVObjectSize size="84" />
+   <wvobject fp_name="/main_tb/MAIN/clk" type="logic">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
    </wvobject>
-   <wvobject fp_name="/main_tb/rst" type="logic">
+   <wvobject fp_name="/main_tb/MAIN/rst" type="logic">
       <obj_property name="ElementShortName">rst</obj_property>
       <obj_property name="ObjectShortName">rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/PC_input_IF_stage" type="array">
+      <obj_property name="ElementShortName">PC_input_IF_stage[31:0]</obj_property>
+      <obj_property name="ObjectShortName">PC_input_IF_stage[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/PC_IF_stage" type="array">
+      <obj_property name="ElementShortName">PC_IF_stage[31:0]</obj_property>
+      <obj_property name="ObjectShortName">PC_IF_stage[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/PC_ID_stage" type="array">
+      <obj_property name="ElementShortName">PC_ID_stage[31:0]</obj_property>
+      <obj_property name="ObjectShortName">PC_ID_stage[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/PC_EX_stage" type="array">
+      <obj_property name="ElementShortName">PC_EX_stage[31:0]</obj_property>
+      <obj_property name="ObjectShortName">PC_EX_stage[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/PC_Add4_IF_stage" type="array">
+      <obj_property name="ElementShortName">PC_Add4_IF_stage[31:0]</obj_property>
+      <obj_property name="ObjectShortName">PC_Add4_IF_stage[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/PC_Add4_EX_stage" type="array">
+      <obj_property name="ElementShortName">PC_Add4_EX_stage[31:0]</obj_property>
+      <obj_property name="ObjectShortName">PC_Add4_EX_stage[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/PC_Imm_EX_stage" type="array">
+      <obj_property name="ElementShortName">PC_Imm_EX_stage[31:0]</obj_property>
+      <obj_property name="ObjectShortName">PC_Imm_EX_stage[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/PC_RS1_Imm_EX_stage" type="array">
+      <obj_property name="ElementShortName">PC_RS1_Imm_EX_stage[31:0]</obj_property>
+      <obj_property name="ObjectShortName">PC_RS1_Imm_EX_stage[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/PC_Branch_EX_stage" type="array">
+      <obj_property name="ElementShortName">PC_Branch_EX_stage[31:0]</obj_property>
+      <obj_property name="ObjectShortName">PC_Branch_EX_stage[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/PC_branch_address_MEM_stage" type="array">
+      <obj_property name="ElementShortName">PC_branch_address_MEM_stage[31:0]</obj_property>
+      <obj_property name="ObjectShortName">PC_branch_address_MEM_stage[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/PC_Temp_MEM" type="array">
+      <obj_property name="ElementShortName">PC_Temp_MEM[31:0]</obj_property>
+      <obj_property name="ObjectShortName">PC_Temp_MEM[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/main_tb/MAIN/IF_data" type="array">
       <obj_property name="ElementShortName">IF_data[31:0]</obj_property>
       <obj_property name="ObjectShortName">IF_data[31:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/controlSignalsCombined" type="array">
-      <obj_property name="ElementShortName">controlSignalsCombined[15:0]</obj_property>
-      <obj_property name="ObjectShortName">controlSignalsCombined[15:0]</obj_property>
-      <obj_property name="Radix">BINARYRADIX</obj_property>
+   <wvobject fp_name="/main_tb/MAIN/IF_data_ID_stage" type="array">
+      <obj_property name="ElementShortName">IF_data_ID_stage[31:0]</obj_property>
+      <obj_property name="ObjectShortName">IF_data_ID_stage[31:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/PC" type="array">
-      <obj_property name="ElementShortName">PC[31:0]</obj_property>
-      <obj_property name="ObjectShortName">PC[31:0]</obj_property>
-      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   <wvobject fp_name="/main_tb/MAIN/opcode_IF_stage" type="array">
+      <obj_property name="ElementShortName">opcode_IF_stage[6:0]</obj_property>
+      <obj_property name="ObjectShortName">opcode_IF_stage[6:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/PC_Add4" type="array">
-      <obj_property name="ElementShortName">PC_Add4[31:0]</obj_property>
-      <obj_property name="ObjectShortName">PC_Add4[31:0]</obj_property>
-      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   <wvobject fp_name="/main_tb/MAIN/opcode_EX" type="array">
+      <obj_property name="ElementShortName">opcode_EX[4:0]</obj_property>
+      <obj_property name="ObjectShortName">opcode_EX[4:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/PC_Branch" type="array">
-      <obj_property name="ElementShortName">PC_Branch[31:0]</obj_property>
-      <obj_property name="ObjectShortName">PC_Branch[31:0]</obj_property>
-      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   <wvobject fp_name="/main_tb/MAIN/funct3_IF_stage" type="array">
+      <obj_property name="ElementShortName">funct3_IF_stage[2:0]</obj_property>
+      <obj_property name="ObjectShortName">funct3_IF_stage[2:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/PC_input" type="array">
-      <obj_property name="ElementShortName">PC_input[31:0]</obj_property>
-      <obj_property name="ObjectShortName">PC_input[31:0]</obj_property>
-      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   <wvobject fp_name="/main_tb/MAIN/funct3to7_EX_stage" type="array">
+      <obj_property name="ElementShortName">funct3to7_EX_stage[3:0]</obj_property>
+      <obj_property name="ObjectShortName">funct3to7_EX_stage[3:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/data_rs1" type="array">
-      <obj_property name="ElementShortName">data_rs1[31:0]</obj_property>
-      <obj_property name="ObjectShortName">data_rs1[31:0]</obj_property>
-      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   <wvobject fp_name="/main_tb/MAIN/funct3_MEM_stage" type="array">
+      <obj_property name="ElementShortName">funct3_MEM_stage[2:0]</obj_property>
+      <obj_property name="ObjectShortName">funct3_MEM_stage[2:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/data_rs2" type="array">
-      <obj_property name="ElementShortName">data_rs2[31:0]</obj_property>
-      <obj_property name="ObjectShortName">data_rs2[31:0]</obj_property>
-      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   <wvobject fp_name="/main_tb/MAIN/isHalt" type="logic">
+      <obj_property name="ElementShortName">isHalt</obj_property>
+      <obj_property name="ObjectShortName">isHalt</obj_property>
    </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/dataWrite" type="array">
-      <obj_property name="ElementShortName">dataWrite[31:0]</obj_property>
-      <obj_property name="ObjectShortName">dataWrite[31:0]</obj_property>
-      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   <wvobject fp_name="/main_tb/MAIN/rd_EX_stage" type="array">
+      <obj_property name="ElementShortName">rd_EX_stage[4:0]</obj_property>
+      <obj_property name="ObjectShortName">rd_EX_stage[4:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/PreShiftImmediate" type="array">
-      <obj_property name="ElementShortName">PreShiftImmediate[31:0]</obj_property>
-      <obj_property name="ObjectShortName">PreShiftImmediate[31:0]</obj_property>
-      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   <wvobject fp_name="/main_tb/MAIN/rd_MEM_stage" type="array">
+      <obj_property name="ElementShortName">rd_MEM_stage[4:0]</obj_property>
+      <obj_property name="ObjectShortName">rd_MEM_stage[4:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/Immediate" type="array">
-      <obj_property name="ElementShortName">Immediate[31:0]</obj_property>
-      <obj_property name="ObjectShortName">Immediate[31:0]</obj_property>
-      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   <wvobject fp_name="/main_tb/MAIN/rd_WB_stage" type="array">
+      <obj_property name="ElementShortName">rd_WB_stage[4:0]</obj_property>
+      <obj_property name="ObjectShortName">rd_WB_stage[4:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/secondValue" type="array">
-      <obj_property name="ElementShortName">secondValue[31:0]</obj_property>
-      <obj_property name="ObjectShortName">secondValue[31:0]</obj_property>
-      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   <wvobject fp_name="/main_tb/MAIN/dataWrite_WB" type="array">
+      <obj_property name="ElementShortName">dataWrite_WB[31:0]</obj_property>
+      <obj_property name="ObjectShortName">dataWrite_WB[31:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/ALUResult" type="array">
-      <obj_property name="ElementShortName">ALUResult[31:0]</obj_property>
-      <obj_property name="ObjectShortName">ALUResult[31:0]</obj_property>
-      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   <wvobject fp_name="/main_tb/MAIN/data_rs1_ID" type="array">
+      <obj_property name="ElementShortName">data_rs1_ID[31:0]</obj_property>
+      <obj_property name="ObjectShortName">data_rs1_ID[31:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/MemoryOutput" type="array">
-      <obj_property name="ElementShortName">MemoryOutput[31:0]</obj_property>
-      <obj_property name="ObjectShortName">MemoryOutput[31:0]</obj_property>
-      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   <wvobject fp_name="/main_tb/MAIN/data_rs1_EX_stage" type="array">
+      <obj_property name="ElementShortName">data_rs1_EX_stage[31:0]</obj_property>
+      <obj_property name="ObjectShortName">data_rs1_EX_stage[31:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/branchSignal" type="logic">
-      <obj_property name="ElementShortName">branchSignal</obj_property>
-      <obj_property name="ObjectShortName">branchSignal</obj_property>
+   <wvobject fp_name="/main_tb/MAIN/data_rs2_ID" type="array">
+      <obj_property name="ElementShortName">data_rs2_ID[31:0]</obj_property>
+      <obj_property name="ObjectShortName">data_rs2_ID[31:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/data_rs1" type="array">
-      <obj_property name="ElementShortName">data_rs1[31:0]</obj_property>
-      <obj_property name="ObjectShortName">data_rs1[31:0]</obj_property>
+   <wvobject fp_name="/main_tb/MAIN/data_rs2_EX_stage" type="array">
+      <obj_property name="ElementShortName">data_rs2_EX_stage[31:0]</obj_property>
+      <obj_property name="ObjectShortName">data_rs2_EX_stage[31:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/secondValue" type="array">
-      <obj_property name="ElementShortName">secondValue[31:0]</obj_property>
-      <obj_property name="ObjectShortName">secondValue[31:0]</obj_property>
+   <wvobject fp_name="/main_tb/MAIN/rs2_MEM_stage" type="array">
+      <obj_property name="ElementShortName">rs2_MEM_stage[31:0]</obj_property>
+      <obj_property name="ObjectShortName">rs2_MEM_stage[31:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/ALUC/ALUsel" type="array">
-      <obj_property name="ElementShortName">ALUsel[3:0]</obj_property>
-      <obj_property name="ObjectShortName">ALUsel[3:0]</obj_property>
+   <wvobject fp_name="/main_tb/MAIN/Immediate_ID" type="array">
+      <obj_property name="ElementShortName">Immediate_ID[31:0]</obj_property>
+      <obj_property name="ObjectShortName">Immediate_ID[31:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/ControlSignals/branch" type="logic">
-      <obj_property name="ElementShortName">branch</obj_property>
-      <obj_property name="ObjectShortName">branch</obj_property>
+   <wvobject fp_name="/main_tb/MAIN/Immediate_EX_stage" type="array">
+      <obj_property name="ElementShortName">Immediate_EX_stage[31:0]</obj_property>
+      <obj_property name="ObjectShortName">Immediate_EX_stage[31:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/ControlSignals/memRead" type="logic">
-      <obj_property name="ElementShortName">memRead</obj_property>
-      <obj_property name="ObjectShortName">memRead</obj_property>
+   <wvobject fp_name="/main_tb/MAIN/shamt_EX_stage" type="array">
+      <obj_property name="ElementShortName">shamt_EX_stage[4:0]</obj_property>
+      <obj_property name="ObjectShortName">shamt_EX_stage[4:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/ControlSignals/MemtoReg" type="logic">
-      <obj_property name="ElementShortName">MemtoReg</obj_property>
-      <obj_property name="ObjectShortName">MemtoReg</obj_property>
+   <wvobject fp_name="/main_tb/MAIN/ALUSelector_EX" type="array">
+      <obj_property name="ElementShortName">ALUSelector_EX[3:0]</obj_property>
+      <obj_property name="ObjectShortName">ALUSelector_EX[3:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/ControlSignals/MemWrite" type="logic">
-      <obj_property name="ElementShortName">MemWrite</obj_property>
-      <obj_property name="ObjectShortName">MemWrite</obj_property>
+   <wvobject fp_name="/main_tb/MAIN/secondValue_EX" type="array">
+      <obj_property name="ElementShortName">secondValue_EX[31:0]</obj_property>
+      <obj_property name="ObjectShortName">secondValue_EX[31:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/ControlSignals/ALUSrc" type="logic">
-      <obj_property name="ElementShortName">ALUSrc</obj_property>
-      <obj_property name="ObjectShortName">ALUSrc</obj_property>
+   <wvobject fp_name="/main_tb/MAIN/zeroSignal_EX" type="logic">
+      <obj_property name="ElementShortName">zeroSignal_EX</obj_property>
+      <obj_property name="ObjectShortName">zeroSignal_EX</obj_property>
    </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/ControlSignals/RegWrite" type="logic">
-      <obj_property name="ElementShortName">RegWrite</obj_property>
-      <obj_property name="ObjectShortName">RegWrite</obj_property>
+   <wvobject fp_name="/main_tb/MAIN/zeroSignal_MEM" type="logic">
+      <obj_property name="ElementShortName">zeroSignal_MEM</obj_property>
+      <obj_property name="ObjectShortName">zeroSignal_MEM</obj_property>
    </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/ControlSignals/ALUOp" type="array">
-      <obj_property name="ElementShortName">ALUOp[1:0]</obj_property>
-      <obj_property name="ObjectShortName">ALUOp[1:0]</obj_property>
-      <obj_property name="Radix">BINARYRADIX</obj_property>
+   <wvobject fp_name="/main_tb/MAIN/carrySignal_EX" type="logic">
+      <obj_property name="ElementShortName">carrySignal_EX</obj_property>
+      <obj_property name="ObjectShortName">carrySignal_EX</obj_property>
    </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/ALUC/ALUsel" type="array">
-      <obj_property name="ElementShortName">ALUsel[3:0]</obj_property>
-      <obj_property name="ObjectShortName">ALUsel[3:0]</obj_property>
-      <obj_property name="Radix">BINARYRADIX</obj_property>
+   <wvobject fp_name="/main_tb/MAIN/carrySignal_MEM" type="logic">
+      <obj_property name="ElementShortName">carrySignal_MEM</obj_property>
+      <obj_property name="ObjectShortName">carrySignal_MEM</obj_property>
    </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/SpecialInstructionCodes" type="array">
-      <obj_property name="ElementShortName">SpecialInstructionCodes[2:0]</obj_property>
-      <obj_property name="ObjectShortName">SpecialInstructionCodes[2:0]</obj_property>
+   <wvobject fp_name="/main_tb/MAIN/overflowSignal_EX" type="logic">
+      <obj_property name="ElementShortName">overflowSignal_EX</obj_property>
+      <obj_property name="ObjectShortName">overflowSignal_EX</obj_property>
    </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/medData" type="array">
-      <obj_property name="ElementShortName">medData[31:0]</obj_property>
-      <obj_property name="ObjectShortName">medData[31:0]</obj_property>
+   <wvobject fp_name="/main_tb/MAIN/overflowSignal_MEM" type="logic">
+      <obj_property name="ElementShortName">overflowSignal_MEM</obj_property>
+      <obj_property name="ObjectShortName">overflowSignal_MEM</obj_property>
    </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/PC_Temp" type="array">
-      <obj_property name="ElementShortName">PC_Temp[31:0]</obj_property>
-      <obj_property name="ObjectShortName">PC_Temp[31:0]</obj_property>
+   <wvobject fp_name="/main_tb/MAIN/signSignal_EX" type="logic">
+      <obj_property name="ElementShortName">signSignal_EX</obj_property>
+      <obj_property name="ObjectShortName">signSignal_EX</obj_property>
    </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/specialInstructionResult" type="array">
-      <obj_property name="ElementShortName">specialInstructionResult[31:0]</obj_property>
-      <obj_property name="ObjectShortName">specialInstructionResult[31:0]</obj_property>
+   <wvobject fp_name="/main_tb/MAIN/signSignal_MEM" type="logic">
+      <obj_property name="ElementShortName">signSignal_MEM</obj_property>
+      <obj_property name="ObjectShortName">signSignal_MEM</obj_property>
    </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/medData" type="array">
-      <obj_property name="ElementShortName">medData[31:0]</obj_property>
-      <obj_property name="ObjectShortName">medData[31:0]</obj_property>
+   <wvobject fp_name="/main_tb/MAIN/ALUResult_EX" type="array">
+      <obj_property name="ElementShortName">ALUResult_EX[31:0]</obj_property>
+      <obj_property name="ObjectShortName">ALUResult_EX[31:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/muxWriteData/sel" type="logic">
-      <obj_property name="ElementShortName">sel</obj_property>
-      <obj_property name="ObjectShortName">sel</obj_property>
+   <wvobject fp_name="/main_tb/MAIN/specialInstructionResult_EX" type="array">
+      <obj_property name="ElementShortName">specialInstructionResult_EX[31:0]</obj_property>
+      <obj_property name="ObjectShortName">specialInstructionResult_EX[31:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/muxWriteData/a" type="array">
-      <obj_property name="ElementShortName">a[31:0]</obj_property>
-      <obj_property name="ObjectShortName">a[31:0]</obj_property>
+   <wvobject fp_name="/main_tb/MAIN/ALUorSpecialResult_EX_stage" type="array">
+      <obj_property name="ElementShortName">ALUorSpecialResult_EX_stage[31:0]</obj_property>
+      <obj_property name="ObjectShortName">ALUorSpecialResult_EX_stage[31:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/muxWriteData/b" type="array">
-      <obj_property name="ElementShortName">b[31:0]</obj_property>
-      <obj_property name="ObjectShortName">b[31:0]</obj_property>
+   <wvobject fp_name="/main_tb/MAIN/ALUorSpecialResult_MEM_stage" type="array">
+      <obj_property name="ElementShortName">ALUorSpecialResult_MEM_stage[31:0]</obj_property>
+      <obj_property name="ObjectShortName">ALUorSpecialResult_MEM_stage[31:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/muxWriteData/c" type="array">
-      <obj_property name="ElementShortName">c[31:0]</obj_property>
-      <obj_property name="ObjectShortName">c[31:0]</obj_property>
+   <wvobject fp_name="/main_tb/MAIN/BranchConfirm_MEM" type="logic">
+      <obj_property name="ElementShortName">BranchConfirm_MEM</obj_property>
+      <obj_property name="ObjectShortName">BranchConfirm_MEM</obj_property>
    </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/muxWriteData/n" type="array">
-      <obj_property name="ElementShortName">n[31:0]</obj_property>
-      <obj_property name="ObjectShortName">n[31:0]</obj_property>
+   <wvobject fp_name="/main_tb/MAIN/MemoryAddress_MEM_stage" type="array">
+      <obj_property name="ElementShortName">MemoryAddress_MEM_stage[7:0]</obj_property>
+      <obj_property name="ObjectShortName">MemoryAddress_MEM_stage[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/MemoryOutput_MEM_stage" type="array">
+      <obj_property name="ElementShortName">MemoryOutput_MEM_stage[31:0]</obj_property>
+      <obj_property name="ObjectShortName">MemoryOutput_MEM_stage[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/DataMem_WB_stage" type="array">
+      <obj_property name="ElementShortName">DataMem_WB_stage[31:0]</obj_property>
+      <obj_property name="ObjectShortName">DataMem_WB_stage[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/ALU_SpecialResult_WB_stage" type="array">
+      <obj_property name="ElementShortName">ALU_SpecialResult_WB_stage[31:0]</obj_property>
+      <obj_property name="ObjectShortName">ALU_SpecialResult_WB_stage[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/MemToReg_WB_stage" type="logic">
+      <obj_property name="ElementShortName">MemToReg_WB_stage</obj_property>
+      <obj_property name="ObjectShortName">MemToReg_WB_stage</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/ShiftedImmediate_EX" type="array">
+      <obj_property name="ElementShortName">ShiftedImmediate_EX[31:0]</obj_property>
+      <obj_property name="ObjectShortName">ShiftedImmediate_EX[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/memoryReadSignal_ID" type="logic">
+      <obj_property name="ElementShortName">memoryReadSignal_ID</obj_property>
+      <obj_property name="ObjectShortName">memoryReadSignal_ID</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/memRead_EX" type="logic">
+      <obj_property name="ElementShortName">memRead_EX</obj_property>
+      <obj_property name="ObjectShortName">memRead_EX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/memRead_MEM" type="logic">
+      <obj_property name="ElementShortName">memRead_MEM</obj_property>
+      <obj_property name="ObjectShortName">memRead_MEM</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/memoryWriteSignal_ID" type="logic">
+      <obj_property name="ElementShortName">memoryWriteSignal_ID</obj_property>
+      <obj_property name="ObjectShortName">memoryWriteSignal_ID</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/memWrite_EX" type="logic">
+      <obj_property name="ElementShortName">memWrite_EX</obj_property>
+      <obj_property name="ObjectShortName">memWrite_EX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/memWrite_MEM" type="logic">
+      <obj_property name="ElementShortName">memWrite_MEM</obj_property>
+      <obj_property name="ObjectShortName">memWrite_MEM</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/memoryToRegisterSignal_ID" type="logic">
+      <obj_property name="ElementShortName">memoryToRegisterSignal_ID</obj_property>
+      <obj_property name="ObjectShortName">memoryToRegisterSignal_ID</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/memToReg_EX" type="logic">
+      <obj_property name="ElementShortName">memToReg_EX</obj_property>
+      <obj_property name="ObjectShortName">memToReg_EX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/memToReg_MEM" type="logic">
+      <obj_property name="ElementShortName">memToReg_MEM</obj_property>
+      <obj_property name="ObjectShortName">memToReg_MEM</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/branchSignal_ID" type="logic">
+      <obj_property name="ElementShortName">branchSignal_ID</obj_property>
+      <obj_property name="ObjectShortName">branchSignal_ID</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/branchSignal_EX" type="logic">
+      <obj_property name="ElementShortName">branchSignal_EX</obj_property>
+      <obj_property name="ObjectShortName">branchSignal_EX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/branchSignal_MEM" type="logic">
+      <obj_property name="ElementShortName">branchSignal_MEM</obj_property>
+      <obj_property name="ObjectShortName">branchSignal_MEM</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/jumpSignal_ID" type="logic">
+      <obj_property name="ElementShortName">jumpSignal_ID</obj_property>
+      <obj_property name="ObjectShortName">jumpSignal_ID</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/jumpSignal_EX" type="logic">
+      <obj_property name="ElementShortName">jumpSignal_EX</obj_property>
+      <obj_property name="ObjectShortName">jumpSignal_EX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/jumpSignal_MEM" type="logic">
+      <obj_property name="ElementShortName">jumpSignal_MEM</obj_property>
+      <obj_property name="ObjectShortName">jumpSignal_MEM</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/ALUSourceSignal_ID" type="logic">
+      <obj_property name="ElementShortName">ALUSourceSignal_ID</obj_property>
+      <obj_property name="ObjectShortName">ALUSourceSignal_ID</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/ALU_src_EX_stage" type="logic">
+      <obj_property name="ElementShortName">ALU_src_EX_stage</obj_property>
+      <obj_property name="ObjectShortName">ALU_src_EX_stage</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/ALUOpSignal_ID" type="array">
+      <obj_property name="ElementShortName">ALUOpSignal_ID[1:0]</obj_property>
+      <obj_property name="ObjectShortName">ALUOpSignal_ID[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/ALU_Op_EX_stage" type="array">
+      <obj_property name="ElementShortName">ALU_Op_EX_stage[1:0]</obj_property>
+      <obj_property name="ObjectShortName">ALU_Op_EX_stage[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/registerWriteSignal_ID" type="logic">
+      <obj_property name="ElementShortName">registerWriteSignal_ID</obj_property>
+      <obj_property name="ObjectShortName">registerWriteSignal_ID</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/regWrite_EX" type="logic">
+      <obj_property name="ElementShortName">regWrite_EX</obj_property>
+      <obj_property name="ObjectShortName">regWrite_EX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/regWrite_MEM" type="logic">
+      <obj_property name="ElementShortName">regWrite_MEM</obj_property>
+      <obj_property name="ObjectShortName">regWrite_MEM</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/RegWrite_WB_stage" type="logic">
+      <obj_property name="ElementShortName">RegWrite_WB_stage</obj_property>
+      <obj_property name="ObjectShortName">RegWrite_WB_stage</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/SpecialInstructionCodes_ID" type="array">
+      <obj_property name="ElementShortName">SpecialInstructionCodes_ID[2:0]</obj_property>
+      <obj_property name="ObjectShortName">SpecialInstructionCodes_ID[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/special1BitCode_Ex_stage" type="logic">
+      <obj_property name="ElementShortName">special1BitCode_Ex_stage</obj_property>
+      <obj_property name="ObjectShortName">special1BitCode_Ex_stage</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/special2BitCode_EX_stage" type="array">
+      <obj_property name="ElementShortName">special2BitCode_EX_stage[1:0]</obj_property>
+      <obj_property name="ObjectShortName">special2BitCode_EX_stage[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/IF_ID_reg" type="array">
+      <obj_property name="ElementShortName">IF_ID_reg[63:0]</obj_property>
+      <obj_property name="ObjectShortName">IF_ID_reg[63:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/ID_EX_reg" type="array">
+      <obj_property name="ElementShortName">ID_EX_reg[158:0]</obj_property>
+      <obj_property name="ObjectShortName">ID_EX_reg[158:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/EX_MEM_reg" type="array">
+      <obj_property name="ElementShortName">EX_MEM_reg[113:0]</obj_property>
+      <obj_property name="ObjectShortName">EX_MEM_reg[113:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/MEM_WB_reg" type="array">
+      <obj_property name="ElementShortName">MEM_WB_reg[70:0]</obj_property>
+      <obj_property name="ObjectShortName">MEM_WB_reg[70:0]</obj_property>
    </wvobject>
 </wave_config>
