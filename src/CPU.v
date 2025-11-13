@@ -46,8 +46,8 @@ SpecialInstructionControlUnit SICU(.opcode(IF_data_stage[6:2]), .sel(SpecialInst
 
 //Instruction Decoding
 wire [31:0] dataWrite, data_rs1, data_rs2;
-RegisterFile RF(.clk(clk), .rst(rst), .regWrite(registerWriteSignal), 
-                .rs1(IF_data_stage[19:15]), .rs2(IF_data_stage[24:20]), .rd(IF_data_stage[11:7]),
+RegisterFile RF(.clk(clk), .rst(rst), .regWrite(RegWrite_WB_stage), 
+                .rs1(IF_data_stage[19:15]), .rs2(IF_data_stage[24:20]), .rd(rd_WB_stage),
                 .writeData(dataWrite), .data1(data_rs1), .data2(data_rs2));
 //Immediate generator
 wire [31:0] Immediate;
@@ -83,7 +83,7 @@ wire [31:0] data_rs1_EX_stage = ID_EX_reg[104:73];
 wire [31:0] PC_EX_stage = ID_EX_reg[136:105];
 wire ALU_src_EX_stage = ID_EX_reg[144];
 wire [1:0] ALU_Op_EX_stage = ID_EX_reg[143:142];
-wire [6:0] SourceSignals_EX_stage = {ID_EX_reg[148:145], ID_EX_reg[141:140]};
+wire [5:0] SourceSignals_EX_stage = {ID_EX_reg[148:145], ID_EX_reg[141:140]};
 wire [1:0] special2BitCode_EX_stage = ID_EX_reg[148:137];
 wire special1BitCode_Ex_stage = ID_EX_reg[139];
 wire [4:0] shamt_EX_stage = ID_EX_reg[153:149];
@@ -137,8 +137,8 @@ wire [114:0] EX_MEM_reg;
 //[68:37] ALUorSpecialResult ALUorSpecialResult_EX_stage
 //[72:69] ALUBranchSignals {zero, sign, carry, overflow}
 //[104:73] PC_Branch PC_Branch_EX_stage
-//[111:105] Controls SourceSignals_EX_stage
-//[114:112] funct3 funct3to7_EX_stage[2:0]
+//[110:105] Controls SourceSignals_EX_stage
+//[113:111] funct3 funct3to7_EX_stage[2:0]
 Register #(115) RG_EX_MEM(.clk(clk), .load(1'b1), .rst(rst), 
 .D({
 funct3to7_EX_stage[2:0], SourceSignals_EX_stage, PC_Branch_EX_stage, zeroSignal, carrySignal, overflowSignal, signSignal,
@@ -149,43 +149,58 @@ ALUorSpecialResult_EX_stage, data_rs2_EX_stage, rd_EX_stage
 wire [4:0] rd_MEM_stage = EX_MEM_reg[4:0];
 wire [31:0] rs2_MEM_stage = EX_MEM_reg[36:5];
 wire [31:0] ALUorSpecialResult_MEM_stage = EX_MEM_reg[68:37];
-wire [3:0] ALU_branch_MEM_stage = EX_MEM_reg[68:69];
+wire [3:0] ALU_branch_MEM_stage = EX_MEM_reg[72:69];
+wire [31:0] PC_branch_address_MEM_stage = EX_MEM_reg[104:73];
+wire [6:0] control_MEM_stage = EX_MEM_reg[110:105];
+wire [2:0] funct3_MEM_stage = EX_MEM_reg[113:111];
 // branch controls
 //Branch address logic for Exexution stage
 wire BranchConfirm;
-BranchControlUnit BCU(.funct3(funct3to7_EX_stage[2:0]), .zeroSignal(zeroSignal), .carrySignal(carrySignal), 
-                      .overflowSignal(overflowSignal), .signSignal(signSignal), .branchSignal(branchSignal),
+BranchControlUnit BCU(.funct3(funct3_MEM_stage), .zeroSignal(ALU_branch_MEM_stage[3]), .carrySignal(ALU_branch_MEM_stage[2]), 
+                      .overflowSignal(ALU_branch_MEM_stage[1]), .signSignal(ALU_branch_MEM_stage[0]), .branchSignal(control_MEM_stage[1]),
                       .BranchConfirm(BranchConfirm));
-
-// Memory
-wire [7:0] MemoryAddress;
-wire [31:0] MemoryOutput;
-assign MemoryAddress = ALUResult[7:0];
-DataMem DataMemory(.clk(clk), .MemRead(memoryReadSignal), .MemWrite(memoryWriteSignal),
-                    .addr(MemoryAddress), .data_in(data_rs2), .data_out(MemoryOutput), .funct3(funct3));
-//End of memory stage
-
-
-///Start of Write back
-//Data Write result
-
-//We will add an medium Wire to hold the data coming from the WB stage (i.e. choosing between memory and ALU
-//and comparing that to the case that we are in a special instruction)
-wire [31:0] medData;
-
-nMUX #(32) mux2(.sel(memoryToRegisterSignal), .a(ALUResult), .b(MemoryOutput), .c(medData));
-
 
 //Branch decisions
 wire [31:0] PC_Temp;
 // select between branch and PC+4
-nMUX #(32) BranchMux(.sel(BranchConfirm), .a(PC_Add4), .b(PC_Branch), .c(PC_Temp));
+nMUX #(32) BranchMux(.sel(BranchConfirm), .a(PC+32'd4), .b(PC_branch_address_MEM_stage), .c(PC_Temp));
 // Then, if halt, keep PC
 nMUX #(32) HaltMux(.sel(isHalt),
     .a(PC_Temp),       // Normal Branch
     .b(PC),  // Current PC
     .c(PC_input)
 );
+
+// Memory
+wire [7:0] MemoryAddress_MEM_stage;
+wire [31:0] MemoryOutput_MEM_stage;
+assign MemoryAddress_MEM_stage = ALUorSpecialResult_MEM_stage[7:0];
+DataMem DataMemory(.clk(clk), .MemRead(control_MEM_stage[5]), .MemWrite(control_MEM_stage[4]),
+                    .addr(MemoryAddress_MEM_stage), .data_in(rs2_MEM_stage), .data_out(MemoryOutput_MEM_stage), .funct3(funct3_MEM_stage));
+//End of memory stage
+// module Register #(parameter n = 8)(input clk, load, rst, input [n-1:0] D, output [n-1:0] Q);
+wire [65:0] MEM_WB_stage;
+//Docs
+//[31:0] DataMem_WB_stage MemoryOutput_MEM_stage
+//[63:32] ALU_SpecialResult_WB_stage ALUorSpecialResult_EX_stage
+//[64] RegWrite_WB_stage control_MEM_stage[2]
+//[65] MemToReg_WB_stage control_MEM_stage[3]
+//[70:66] rd_WB_stage rd_MEM_stage
+Register #(71) RG_MEM_WB(.clk(clk), .load(1'b1), .rst(rst), 
+.D({rd_MEM_stage,
+control_MEM_stage[3:2], ALUorSpecialResult_EX_stage, MemoryOutput_MEM_stage
+}), 
+.Q(MEM_WB_stage)); 
+wire[31:0] DataMem_WB_stage = MEM_WB_stage[31:0];
+wire [31:0] ALU_SpecialResult_WB_stage = MEM_WB_stage[63:32] ; 
+wire RegWrite_WB_stage  = MEM_WB_stage[64];
+wire MemToReg_WB_stage  = MEM_WB_stage[65];
+wire rd_WB_stage = MEM_WB_stage[70:66];
+///Start of Write back
+//Data Write result
+
+nMUX #(32) mux2(.sel(MemToReg_WB_stage), .a(ALU_SpecialResult_WB_stage), .b(DataMem_WB_stage), .c(dataWrite));
+
 
 //Concatenation of control signals
 wire [15:0] controlSignalsCombined;
@@ -244,7 +259,7 @@ always @(*) begin
             SSD = ALUResult[12:0];
         end
         4'b1011: begin
-            SSD = MemoryOutput[12:0];
+            SSD = MemoryOutput_MEM_stage[12:0];
         end
         
     endcase
