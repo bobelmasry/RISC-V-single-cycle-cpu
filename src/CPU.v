@@ -217,57 +217,59 @@ nMUX #(32) mux2(.sel(MemToReg_WB_stage), .a(ALU_SpecialResult_WB_stage), .b(Data
 
 
 
-//always @(*) begin
-//    case (LEDSel)
-//        2'b00: begin
-//            LED = IF_data[15:0];
-//        end
-//        2'b01: begin
-//            LED = IF_data[31:16];
-//        end
-//        2'b11: begin
-//        //Empty for now
-//            LED = 16'b1111111111111111;
-//        end
-//    endcase
-//    case (SSDSel)
-//        4'b0000: begin
-//            SSD = PC[12:0];
-//        end
-//        4'b0001: begin
-//            SSD = PC_Add4[12:0];
-//        end
-//        4'b0010: begin
-//            SSD = PC_Branch[12:0];
-//        end
-//        4'b0011: begin
-//            SSD = PC_input[12:0];
-//        end
-//        4'b0100: begin
-//            SSD = data_rs1[12:0];
-//        end
-//        4'b0101: begin
-//            SSD = data_rs2[12:0];
-//        end
-//        4'b0110: begin
-//            SSD = dataWrite[12:0];
-//        end
-//        4'b0111: begin
-//            SSD = Immediate[12:0];
-//        end
-//        4'b1000: begin
-//            SSD = Immediate[12:0];
-//        end
-//        4'b1001: begin
-//            SSD = secondValue[12:0];
-//        end
-//        4'b1010: begin
-//            SSD = ALUResult[12:0];
-//        end
-//        4'b1011: begin
-//            SSD = MemoryOutput_MEM_stage[12:0];
-//        end
-        
-//    endcase
-//end
+always @(*) begin
+    case (LEDSel)
+        2'b00: begin
+            LED = IF_data[15:0];
+        end 
+        2'b01: begin
+            LED = IF_data[31:16];
+        end
+        2'b11: begin
+        //Empty for now
+            LED = 16'b1111111111111111;
+        end
+    endcase
+    case (SSDSel)
+        4'b0000: begin
+            SSD = PC_IF_stage[12:0];
+        end
+        4'b0001: begin
+            SSD = PC_Add4_IF_stage[12:0];
+        end
+        4'b0010: begin
+            SSD = PC_branch_address_MEM_stage[12:0];
+        end
+        4'b0011: begin
+            SSD = PC_input_IF_stage[12:0];
+        end
+        4'b0100: begin
+            SSD = data_rs1_ID[12:0];
+        end
+        4'b0101: begin
+            SSD = data_rs2_ID[12:0];
+        end
+        4'b0110: begin
+            SSD = dataWrite_WB[12:0];
+        end
+        4'b0111: begin
+            SSD = Immediate_ID[12:0];
+        end
+        4'b1000: begin
+            SSD = Immediate_ID[12:0];
+        end
+        4'b1001: begin
+            SSD = secondValue_EX[12:0];
+        end
+        4'b1010: begin
+            SSD = ALUResult_EX[12:0];
+        end
+        4'b1011: begin
+            SSD = MemoryOutput_MEM_stage[12:0];
+        end
+        4'b1100: begin
+            SSD = {8'b00000000, rd_WB_stage};
+        end
+    endcase
+end
 endmodule
