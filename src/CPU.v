@@ -102,7 +102,7 @@ ALU_control ALUC(.ALUop(ALU_Op_EX_stage), .funct3to7(funct3to7_EX_stage), .ALUse
 //Forwarding Unit
 wire [1:0] forwardA;
 wire [1:0] forwardB;
-forwardingUnit FU(.ex_mem_RegWrite(regWrite_EX), .ex_mem_RegisterRd(rd_MEM_stage),
+forwardingUnit FU(.ex_mem_RegWrite(regWrite_MEM), .ex_mem_RegisterRd(rd_MEM_stage),
     .id_ex_RegisterRs1(rs1_EX_stage), .id_ex_RegisterRs2(rs2_EX_stage),
     .mem_wb_RegWrite(RegWrite_WB_stage), .mem_wb_RegisterRd(rd_WB_stage),
     .forwardA(forwardA), .forwardB(forwardB)
@@ -173,9 +173,11 @@ ALUorSpecialResult_EX_stage, data_rs2_EX_stage, rd_EX_stage
 }), 
 .Q(EX_MEM_reg)); 
 //start of memory stage
-wire [4:0] rd_MEM_stage = EX_MEM_reg[4:0];
+wire [4:0] rd_MEM_stage;
+assign rd_MEM_stage = EX_MEM_reg[4:0];
 wire [31:0] rs2_MEM_stage = EX_MEM_reg[36:5];
-wire [31:0] ALUorSpecialResult_MEM_stage = EX_MEM_reg[68:37];
+wire [31:0] ALUorSpecialResult_MEM_stage;
+assign ALUorSpecialResult_MEM_stage  = EX_MEM_reg[68:37];
 wire signSignal_MEM = EX_MEM_reg[69];
 wire overflowSignal_MEM = EX_MEM_reg[70];
 wire carrySignal_MEM = EX_MEM_reg[71];
@@ -184,7 +186,8 @@ wire [31:0] PC_branch_address_MEM_stage = EX_MEM_reg[104:73];
 wire memRead_MEM = EX_MEM_reg[110];
 wire memWrite_MEM = EX_MEM_reg[109];
 wire memToReg_MEM = EX_MEM_reg[108];
-wire regWrite_MEM = EX_MEM_reg[107];
+wire regWrite_MEM;
+assign regWrite_MEM = EX_MEM_reg[107];
 wire branchSignal_MEM = EX_MEM_reg[106];
 wire jumpSignal_MEM = EX_MEM_reg[105];
 wire [2:0] funct3_MEM_stage = EX_MEM_reg[113:111];
