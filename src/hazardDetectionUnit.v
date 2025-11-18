@@ -5,8 +5,10 @@ module hazardDetectionUnit(
 );
 
 always @(*) begin
-    if ((if_id_RegisterRs1 == id_ex_RegisterRd) || ) begin
-        
+    stall = 0
+    if ((if_id_RegisterRs1 == id_ex_RegisterRd) || (if_id_RegisterRs2 == id_ex_RegisterRd)
+    && (id_ex_MemRead && (id_ex_RegisterRd != 0))) begin
+        stall = 1;
     end
 end
     
