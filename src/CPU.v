@@ -53,7 +53,7 @@ ImmGen ImmediateGenerator(.instr(IF_data_ID_stage), .imm(Immediate_ID));
 
 ////////////End of ID stage
 // module Register #(parameter n = 8)(input clk, load, rst, input [n-1:0] D, output [n-1:0] Q);
-wire [158:0] ID_EX_reg;
+wire [163:0] ID_EX_reg;
 //Docs
 //[4:0] rd (IF_data[11:7])
 //[8:5] funct3+7 (IF_data[30,14:12]
@@ -64,10 +64,11 @@ wire [158:0] ID_EX_reg;
 //[148:137] Control signals 
 // [148:146] memory:read,write,toReg, [145] regWrite, 
 // [144:142] ALU:src,op, [141:140] PC:branch,jump, [139:137] specialInstructions 
-//[153:149] shamt
+//[153:149] shamt/rs2
 //[158:154] opcode
-Register #(159) RG_ID_EX(.clk(clk), .load(1'b1), .rst(rst), 
-.D({ IF_data_ID_stage[6:2], IF_data_ID_stage[24:20],
+//[163:159] rs1
+Register #(164) RG_ID_EX(.clk(clk), .load(1'b1), .rst(rst), 
+.D({ IF_data_ID_stage[19:15], IF_data_ID_stage[6:2], IF_data_ID_stage[24:20],
 memoryReadSignal_ID, memoryWriteSignal_ID, memoryToRegisterSignal_ID, registerWriteSignal_ID,
 ALUSourceSignal_ID, ALUOpSignal_ID, branchSignal_ID, jumpSignal_ID, SpecialInstructionCodes_ID,
 PC_ID_stage, data_rs1_ID, data_rs2_ID, Immediate_ID, IF_data_ID_stage[30], IF_data_ID_stage[14:12], IF_data_ID_stage[11:7]
@@ -91,7 +92,9 @@ wire memToReg_EX = ID_EX_reg[146];
 wire memWrite_EX = ID_EX_reg[147];
 wire memRead_EX = ID_EX_reg[148];
 wire [4:0] shamt_EX_stage = ID_EX_reg[153:149];
+wire [4:0] rs2_EX_stage = ID_EX_reg[153:149];
 wire [4:0] opcode_EX = ID_EX_reg[158:154];
+wire [4:0] rs1_EX_stage = ID_EX_reg[163:159];
 //ALU Control
 wire [3:0] ALUSelector_EX;
 ALU_control ALUC(.ALUop(ALU_Op_EX_stage), .funct3to7(funct3to7_EX_stage), .ALUsel(ALUSelector_EX));
