@@ -99,13 +99,31 @@ wire [4:0] rs1_EX_stage = ID_EX_reg[163:159];
 wire [3:0] ALUSelector_EX;
 ALU_control ALUC(.ALUop(ALU_Op_EX_stage), .funct3to7(funct3to7_EX_stage), .ALUsel(ALUSelector_EX));
 
+//Forwarding Unit
+wire [1:0] forwardA;
+wire [1:0] forwardB;
+forwardingUnit FU(.ex_mem_RegWrite(regWrite_EX), .ex_mem_RegisterRd(rd_MEM_stage),
+    .id_ex_RegisterRs1(rs1_EX_stage), .id_ex_RegisterRs2(rs2_EX_stage),
+    .mem_wb_RegWrite(RegWrite_WB_stage), .mem_wb_RegisterRd(rd_WB_stage),
+    .forwardA(forwardA), .forwardB(forwardB)
+);
+wire [31:0] inputA_EX_stage;
+FourXoneMux InputA(.op0(data_rs1_EX_stage), 
+                    .op1(dataWrite_WB), 
+                    .op2(ALUorSpecialResult_MEM_stage), 
+                    .op3(32'b0), .sel(forwardA), .out(inputA_EX_stage));
+wire [31:0] inputB_EX_stage;
+FourXoneMux InputB(.op0(data_rs2_EX_stage), 
+                    .op1(dataWrite_WB), 
+                    .op2(ALUorSpecialResult_MEM_stage), 
+                    .op3(32'b0), .sel(forwardB), .out(inputB_EX_stage));
 //ALU
 wire [31:0] secondValue_EX;
 wire zeroSignal_EX, carrySignal_EX, overflowSignal_EX, signSignal_EX;
 wire [31:0] ALUResult_EX;
-nMUX #(32) mux(.sel(ALU_src_EX_stage), .a(data_rs2_EX_stage), .b(Immediate_EX_stage), .c(secondValue_EX));
+nMUX #(32) mux(.sel(ALU_src_EX_stage), .a(inputB_EX_stage), .b(Immediate_EX_stage), .c(secondValue_EX));
 prv32_ALU alu (
-    .a(data_rs1_EX_stage),
+    .a(inputA_EX_stage),
     .b(secondValue_EX),
     .shamt(shamt_EX_stage),
     .alufn(ALUSelector_EX),       // ALUOp
