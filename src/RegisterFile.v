@@ -7,7 +7,7 @@ input clk, rst, regWrite, input [4:0] rs1, rs2, rd, input [N-1:0] writeData, out
     integer i;
     
 reg [N-1:0] regFile[31:0];
-always @ (posedge clk or posedge rst)
+always @ (negedge clk or posedge rst)
     if (rst) begin
         for(i = 0; i < N; i=i+1)
             regFile[i] <= 0;

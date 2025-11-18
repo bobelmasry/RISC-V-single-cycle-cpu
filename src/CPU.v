@@ -8,7 +8,7 @@ output reg [15:0] LED, output reg [12:0] SSD
 wire [31:0] PC_input_IF_stage;
 wire [31:0] PC_IF_stage;
 wire [31:0] PC_Add4_IF_stage = PC_IF_stage + 32'd4;
-Register #(32) ProgramCounter(.clk(clk), .load(1'b1), .rst(rst), .D(PC_input_IF_stage), .Q(PC_IF_stage));
+Register #(32) ProgramCounter(.clk(clk), .load(~stall), .rst(rst), .D(PC_input_IF_stage), .Q(PC_IF_stage));
 
 
 //Instruction Fetching
@@ -25,10 +25,18 @@ wire [63:0] IF_ID_reg;
 //Docs
 //[63:32] is the PC
 //[31:0] is the IF_data
-Register #(64) RG_IF_ID(.clk(clk), .load(1'b1), .rst(rst), .D({PC_IF_stage, IF_data}), .Q(IF_ID_reg)); 
+Register #(64) RG_IF_ID(.clk(clk), .load(~stall), .rst(rst), .D({PC_IF_stage, IF_data}), .Q(IF_ID_reg)); 
 ////////////Start of ID
 wire [31:0] PC_ID_stage = IF_ID_reg[63:32];
 wire [31:0] IF_data_ID_stage = IF_ID_reg[31:0];
+//Hazard detection unit
+wire stall;
+hazardDetectionUnit HDU(
+    .if_id_RegisterRs1(IF_data_ID_stage[19:15]), .if_id_RegisterRs2(IF_data_ID_stage[24:20]),
+    .id_ex_RegisterRd(rd_EX_stage), .id_ex_MemRead(memRead_EX),
+    .stall(stall)
+);
+
 //Control Signals
 wire branchSignal_ID, memoryReadSignal_ID, memoryWriteSignal_ID, memoryToRegisterSignal_ID,
                 ALUSourceSignal_ID, registerWriteSignal_ID, jumpSignal_ID;
@@ -40,6 +48,10 @@ control ControlSignals(.instr(IF_data_ID_stage), .branch(branchSignal_ID), .jump
 wire [2:0] SpecialInstructionCodes_ID;
 SpecialInstructionControlUnit SICU(.opcode(IF_data_ID_stage[6:2]), .sel(SpecialInstructionCodes_ID));
 
+wire [11:0] allControl_ID_stage = {memoryReadSignal_ID, memoryWriteSignal_ID, memoryToRegisterSignal_ID, registerWriteSignal_ID,
+ALUSourceSignal_ID, ALUOpSignal_ID, branchSignal_ID, jumpSignal_ID, SpecialInstructionCodes_ID};
+wire [11:0] controls_Saved_ID_stage;
+nMUX #(12) muxControl(.sel(stall), .a(allControl_ID_stage), .b(12'b000000000000), .c(controls_Saved_ID_stage));
 //Instruction Decoding
 wire RegWrite_WB_stage;
 wire [4:0] rd_WB_stage;
@@ -50,6 +62,8 @@ RegisterFile RF(.clk(clk), .rst(rst), .regWrite(RegWrite_WB_stage),
 //Immediate generator
 wire [31:0] Immediate_ID;
 ImmGen ImmediateGenerator(.instr(IF_data_ID_stage), .imm(Immediate_ID));
+
+
 
 ////////////End of ID stage
 // module Register #(parameter n = 8)(input clk, load, rst, input [n-1:0] D, output [n-1:0] Q);
@@ -69,13 +83,13 @@ wire [163:0] ID_EX_reg;
 //[163:159] rs1
 Register #(164) RG_ID_EX(.clk(clk), .load(1'b1), .rst(rst), 
 .D({ IF_data_ID_stage[19:15], IF_data_ID_stage[6:2], IF_data_ID_stage[24:20],
-memoryReadSignal_ID, memoryWriteSignal_ID, memoryToRegisterSignal_ID, registerWriteSignal_ID,
-ALUSourceSignal_ID, ALUOpSignal_ID, branchSignal_ID, jumpSignal_ID, SpecialInstructionCodes_ID,
+controls_Saved_ID_stage,
 PC_ID_stage, data_rs1_ID, data_rs2_ID, Immediate_ID, IF_data_ID_stage[30], IF_data_ID_stage[14:12], IF_data_ID_stage[11:7]
 }), 
 .Q(ID_EX_reg)); 
 ////////////Start of EX stage
-wire [4:0] rd_EX_stage = ID_EX_reg[4:0];
+wire [4:0] rd_EX_stage;
+assign rd_EX_stage = ID_EX_reg[4:0];
 wire [3:0] funct3to7_EX_stage = ID_EX_reg[8:5];
 wire [31:0] Immediate_EX_stage = ID_EX_reg[40:9];
 wire [31:0] data_rs2_EX_stage = ID_EX_reg[72:41];
@@ -90,7 +104,8 @@ wire ALU_src_EX_stage = ID_EX_reg[144];
 wire regWrite_EX = ID_EX_reg[145];
 wire memToReg_EX = ID_EX_reg[146];
 wire memWrite_EX = ID_EX_reg[147];
-wire memRead_EX = ID_EX_reg[148];
+wire memRead_EX;
+assign memRead_EX = ID_EX_reg[148];
 wire [4:0] shamt_EX_stage = ID_EX_reg[153:149];
 wire [4:0] rs2_EX_stage = ID_EX_reg[153:149];
 wire [4:0] opcode_EX = ID_EX_reg[158:154];
@@ -102,10 +117,10 @@ ALU_control ALUC(.ALUop(ALU_Op_EX_stage), .funct3to7(funct3to7_EX_stage), .ALUse
 //Forwarding Unit
 wire [1:0] forwardA;
 wire [1:0] forwardB;
-forwardingUnit FU(.ex_mem_RegWrite(regWrite_MEM), .ex_mem_RegisterRd(rd_MEM_stage),
-    .id_ex_RegisterRs1(rs1_EX_stage), .id_ex_RegisterRs2(rs2_EX_stage),
-    .mem_wb_RegWrite(RegWrite_WB_stage), .mem_wb_RegisterRd(rd_WB_stage),
-    .forwardA(forwardA), .forwardB(forwardB)
+forwardingUnit FU(.EX_regWrite(regWrite_MEM), .EX_rd(rd_MEM_stage),
+    .ID_rs1(rs1_EX_stage), .ID_rs2(rs2_EX_stage),
+    .MEM_regWrite(RegWrite_WB_stage), .MEM_rd(rd_WB_stage),
+    .fowA(forwardA), .fowB(forwardB)
 );
 wire [31:0] inputA_EX_stage;
 FourXoneMux InputA(.op0(data_rs1_EX_stage), 
@@ -169,7 +184,7 @@ Register #(114) RG_EX_MEM(.clk(clk), .load(1'b1), .rst(rst),
 .D({
 funct3to7_EX_stage[2:0], memRead_EX, memWrite_EX, memToReg_EX, regWrite_EX, branchSignal_EX, jumpSignal_EX,
 PC_Branch_EX_stage, zeroSignal_EX, carrySignal_EX, overflowSignal_EX, signSignal_EX,
-ALUorSpecialResult_EX_stage, data_rs2_EX_stage, rd_EX_stage
+ALUorSpecialResult_EX_stage, inputB_EX_stage, rd_EX_stage
 }), 
 .Q(EX_MEM_reg)); 
 //start of memory stage

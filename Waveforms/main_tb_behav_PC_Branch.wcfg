@@ -12,38 +12,45 @@
    </db_ref_list>
    <zoom_setting>
       <ZoomStartTime time="0.000 ns"></ZoomStartTime>
-      <ZoomEndTime time="343.401 ns"></ZoomEndTime>
-      <Cursor1Time time="180.000 ns"></Cursor1Time>
+      <ZoomEndTime time="223.001 ns"></ZoomEndTime>
+      <Cursor1Time time="1,000.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="372"></NameColumnWidth>
-      <ValueColumnWidth column_width="210"></ValueColumnWidth>
+      <ValueColumnWidth column_width="202"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="11" />
+   <WVObjectSize size="9" />
    <wvobject fp_name="/main_tb/MAIN/clk" type="logic">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
    </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/rst" type="logic">
-      <obj_property name="ElementShortName">rst</obj_property>
-      <obj_property name="ObjectShortName">rst</obj_property>
-   </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/data_rs1_EX_stage" type="array">
-      <obj_property name="ElementShortName">data_rs1_EX_stage[31:0]</obj_property>
-      <obj_property name="ObjectShortName">data_rs1_EX_stage[31:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/PC_input_IF_stage" type="array">
-      <obj_property name="ElementShortName">PC_input_IF_stage[31:0]</obj_property>
-      <obj_property name="ObjectShortName">PC_input_IF_stage[31:0]</obj_property>
+   <wvobject fp_name="/main_tb/MAIN/PC_IF_stage" type="array">
+      <obj_property name="ElementShortName">PC_IF_stage[31:0]</obj_property>
+      <obj_property name="ObjectShortName">PC_IF_stage[31:0]</obj_property>
       <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/dataWrite_WB" type="array">
-      <obj_property name="ElementShortName">dataWrite_WB[31:0]</obj_property>
-      <obj_property name="ObjectShortName">dataWrite_WB[31:0]</obj_property>
+   <wvobject fp_name="/main_tb/MAIN/HDU/if_id_RegisterRs1" type="array">
+      <obj_property name="ElementShortName">if_id_RegisterRs1[4:0]</obj_property>
+      <obj_property name="ObjectShortName">if_id_RegisterRs1[4:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/ALUorSpecialResult_MEM_stage" type="array">
-      <obj_property name="ElementShortName">ALUorSpecialResult_MEM_stage[31:0]</obj_property>
-      <obj_property name="ObjectShortName">ALUorSpecialResult_MEM_stage[31:0]</obj_property>
+   <wvobject fp_name="/main_tb/MAIN/HDU/if_id_RegisterRs2" type="array">
+      <obj_property name="ElementShortName">if_id_RegisterRs2[4:0]</obj_property>
+      <obj_property name="ObjectShortName">if_id_RegisterRs2[4:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/HDU/id_ex_RegisterRd" type="array">
+      <obj_property name="ElementShortName">id_ex_RegisterRd[4:0]</obj_property>
+      <obj_property name="ObjectShortName">id_ex_RegisterRd[4:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/HDU/id_ex_MemRead" type="logic">
+      <obj_property name="ElementShortName">id_ex_MemRead</obj_property>
+      <obj_property name="ObjectShortName">id_ex_MemRead</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/HDU/stall" type="logic">
+      <obj_property name="ElementShortName">stall</obj_property>
+      <obj_property name="ObjectShortName">stall</obj_property>
    </wvobject>
    <wvobject fp_name="/main_tb/MAIN/forwardA" type="array">
       <obj_property name="ElementShortName">forwardA[1:0]</obj_property>
@@ -52,17 +59,5 @@
    <wvobject fp_name="/main_tb/MAIN/forwardB" type="array">
       <obj_property name="ElementShortName">forwardB[1:0]</obj_property>
       <obj_property name="ObjectShortName">forwardB[1:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/inputA_EX_stage" type="array">
-      <obj_property name="ElementShortName">inputA_EX_stage[31:0]</obj_property>
-      <obj_property name="ObjectShortName">inputA_EX_stage[31:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/inputB_EX_stage" type="array">
-      <obj_property name="ElementShortName">inputB_EX_stage[31:0]</obj_property>
-      <obj_property name="ObjectShortName">inputB_EX_stage[31:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/secondValue_EX" type="array">
-      <obj_property name="ElementShortName">secondValue_EX[31:0]</obj_property>
-      <obj_property name="ObjectShortName">secondValue_EX[31:0]</obj_property>
    </wvobject>
 </wave_config>
