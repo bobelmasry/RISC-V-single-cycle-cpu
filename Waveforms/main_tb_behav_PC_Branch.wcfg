@@ -12,37 +12,26 @@
    </db_ref_list>
    <zoom_setting>
       <ZoomStartTime time="0.000 ns"></ZoomStartTime>
-      <ZoomEndTime time="223.001 ns"></ZoomEndTime>
-      <Cursor1Time time="1,000.000 ns"></Cursor1Time>
+      <ZoomEndTime time="173.301 ns"></ZoomEndTime>
+      <Cursor1Time time="10.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="372"></NameColumnWidth>
-      <ValueColumnWidth column_width="202"></ValueColumnWidth>
+      <ValueColumnWidth column_width="194"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="9" />
-   <wvobject fp_name="/main_tb/MAIN/clk" type="logic">
-      <obj_property name="ElementShortName">clk</obj_property>
-      <obj_property name="ObjectShortName">clk</obj_property>
-   </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/PC_IF_stage" type="array">
-      <obj_property name="ElementShortName">PC_IF_stage[31:0]</obj_property>
-      <obj_property name="ObjectShortName">PC_IF_stage[31:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-   </wvobject>
+   <WVObjectSize size="5" />
    <wvobject fp_name="/main_tb/MAIN/HDU/if_id_RegisterRs1" type="array">
       <obj_property name="ElementShortName">if_id_RegisterRs1[4:0]</obj_property>
       <obj_property name="ObjectShortName">if_id_RegisterRs1[4:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/main_tb/MAIN/HDU/if_id_RegisterRs2" type="array">
       <obj_property name="ElementShortName">if_id_RegisterRs2[4:0]</obj_property>
       <obj_property name="ObjectShortName">if_id_RegisterRs2[4:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/main_tb/MAIN/HDU/id_ex_RegisterRd" type="array">
       <obj_property name="ElementShortName">id_ex_RegisterRd[4:0]</obj_property>
       <obj_property name="ObjectShortName">id_ex_RegisterRd[4:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/main_tb/MAIN/HDU/id_ex_MemRead" type="logic">
       <obj_property name="ElementShortName">id_ex_MemRead</obj_property>
@@ -51,13 +40,5 @@
    <wvobject fp_name="/main_tb/MAIN/HDU/stall" type="logic">
       <obj_property name="ElementShortName">stall</obj_property>
       <obj_property name="ObjectShortName">stall</obj_property>
-   </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/forwardA" type="array">
-      <obj_property name="ElementShortName">forwardA[1:0]</obj_property>
-      <obj_property name="ObjectShortName">forwardA[1:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/forwardB" type="array">
-      <obj_property name="ElementShortName">forwardB[1:0]</obj_property>
-      <obj_property name="ObjectShortName">forwardB[1:0]</obj_property>
    </wvobject>
 </wave_config>

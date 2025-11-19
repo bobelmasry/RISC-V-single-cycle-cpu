@@ -117,10 +117,10 @@ ALU_control ALUC(.ALUop(ALU_Op_EX_stage), .funct3to7(funct3to7_EX_stage), .ALUse
 //Forwarding Unit
 wire [1:0] forwardA;
 wire [1:0] forwardB;
-forwardingUnit FU(.EX_regWrite(regWrite_MEM), .EX_rd(rd_MEM_stage),
-    .ID_rs1(rs1_EX_stage), .ID_rs2(rs2_EX_stage),
-    .MEM_regWrite(RegWrite_WB_stage), .MEM_rd(rd_WB_stage),
-    .fowA(forwardA), .fowB(forwardB)
+forwardingUnit FU(.ex_mem_RegWrite(regWrite_MEM), .ex_mem_RegisterRd(rd_MEM_stage),
+    .id_ex_RegisterRs1(rs1_EX_stage), .id_ex_RegisterRs2(rs2_EX_stage),
+    .mem_wb_RegWrite(RegWrite_WB_stage), .mem_wb_RegisterRd(rd_WB_stage),
+    .forwardA(forwardA), .forwardB(forwardB)
 );
 wire [31:0] inputA_EX_stage;
 FourXoneMux InputA(.op0(data_rs1_EX_stage), 
