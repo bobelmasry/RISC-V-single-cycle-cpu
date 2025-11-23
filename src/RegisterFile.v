@@ -17,4 +17,15 @@ always @ (negedge clk or posedge rst)
     end
     assign data1 = regFile[rs1];
     assign data2 = regFile[rs2];
+    
+task printRegFile;
+        integer j;
+        begin
+            $display("\n=== Register File Dump ===");
+            for (j = 0; j < 32; j = j + 1) begin
+                $display("x%0d = %h", j, regFile[j]);
+            end
+            $display("==========================\n");
+        end
+    endtask
 endmodule
