@@ -32,14 +32,14 @@ rst = 1'b0;
 end
 
 initial begin
-    #100;
+    #10;
     $display(">>> SIMULATION RUNNING <<<");
 end
 
 
 integer k;
 initial begin
-    #2000;
+    #500;
    $display(">>> DUMPING REGISTER FILE <<<");
    MAIN.RF.printRegFile();
 end
