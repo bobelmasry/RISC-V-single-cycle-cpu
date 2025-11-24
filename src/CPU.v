@@ -167,7 +167,7 @@ nMUX #(32) muxALUorSpecialData(.sel(special1BitCode_Ex_stage), .a(ALUResult_EX),
 
 wire [31:0] PC_Imm_EX_stage = PC_EX_stage + Immediate_EX_stage;
 wire [31:0] PC_RS1_Imm_EX_stage = data_rs1_EX_stage + Immediate_EX_stage;
-wire [31:0] PC_Branch_EX_stage = (opcode_EX == 5'b11011 || opcode_EX == 5'b11001) ? PC_RS1_Imm_EX_stage : PC_Imm_EX_stage;
+wire [31:0] PC_Branch_EX_stage = (opcode_EX == 5'b11001) ? PC_RS1_Imm_EX_stage : PC_Imm_EX_stage;
 
 // Control checking for flushing
 wire [9:0] allControl_EX = {memRead_EX, memWrite_EX, memToReg_EX, regWrite_EX, branchSignal_EX, jumpSignal_EX,
