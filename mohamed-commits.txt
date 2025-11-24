@@ -1,8 +1,8 @@
-ccd5945 2025-11-24 20:20:12 +0200 Aly Youssef
-  added final block diagram
+0f6f85c 2025-11-24 21:45:42 +0200 Mohamed-Amer-1729
+  Merge branch 'main' of https://github.com/bobelmasry/RISC-V-single-cycle-cpu
 
-781f453 2025-11-24 20:13:53 +0200 Aly Youssef
-  Added project report
+ed3647b 2025-11-24 21:36:26 +0200 Mohamed-Amer-1729
+  Release - all instructions work for this version
 
 0606f31 2025-11-24 19:35:06 +0200 Mohamed-Amer-1729
   Tested All instructions except special and halting ones. All working
@@ -16,9 +16,6 @@ ac2156b 2025-11-24 12:28:12 +0200 Mohamed-Amer-1729
 0c5f211 2025-11-23 22:34:33 +0200 Mohamed-Amer-1729
   Fixed the printing reigster issue
 
-c414af4 2025-11-23 20:20:14 +0200 Aly Youssef
-  struggling to print register file contents
-
 6fb11b5 2025-11-19 23:28:47 +0200 Mohamed-Amer-1729
   Fixed an issue with instruction memory. Code now works
 
@@ -28,14 +25,8 @@ c414af4 2025-11-23 20:20:14 +0200 Aly Youssef
 aa5ac84 2025-11-18 19:54:27 +0200 Mohamed-Amer-1729
   Fixed forwarding unit code
 
-a626134 2025-11-18 19:19:51 +0200 Aly Youssef
-  full hazard detection unit added
-
 e1e64f4 2025-11-18 19:17:51 +0200 Mohamed-Amer-1729
   Further work on forwarding unit
-
-e579b2e 2025-11-18 18:16:11 +0200 Aly Youssef
-  added forwarding unit and hazard detection prototype
 
 bca1176 2025-11-18 18:14:09 +0200 Mohamed-Amer-1729
   Added rs1 signal to EX stage
@@ -61,24 +52,6 @@ a34111f 2025-11-11 20:32:00 +0200 Mohamed-Amer-1729
 fda23ff 2025-11-11 19:36:12 +0200 Mohamed-Amer-1729
   Added pipelining for IF/ID, ID/EX stages
 
-deb6d9c 2025-11-11 19:17:03 +0200 Aly Youssef
-  Update README with new block diagram and logs
-
-e63e404 2025-11-11 19:16:19 +0200 Aly Youssef
-  Add files via upload
-
-a35797c 2025-11-11 19:16:01 +0200 Aly Youssef
-  Delete RISC-V CPU Block Diagram.png
-
-b63cc4f 2025-11-11 19:13:21 +0200 Aly Youssef
-  Added updated block diagram
-
-3238581 2025-11-11 19:12:56 +0200 Aly Youssef
-  Delete RISC-V CPU Block Diagram.png
-
-d4144f7 2025-11-11 18:33:22 +0200 Aly Youssef
-  Enhance readme with commit logs and details
-
 89c9e1f 2025-11-11 18:23:25 +0200 Mohamed-Amer-1729
   Fixed issues with data write and memory output
 
@@ -100,12 +73,6 @@ ca1ca7f 2025-11-10 20:44:40 +0200 Mohamed-Amer-1729
 2915e3f 2025-11-10 19:19:44 +0200 Mohamed-Amer-1729
   Added ALU control Unit improvements to cover all 37 instructions
 
-4329cc2 2025-11-10 18:25:20 +0200 Aly Youssef
-  Made Data Memory Byte-Addressable
-
-92304d8 2025-11-10 17:49:07 +0200 Aly Youssef
-  added basic test cases
-
 1175aba 2025-11-09 15:28:13 +0200 Mohamed-Amer-1729
   Fixed a merge issue with the immediate generator
 
@@ -115,35 +82,14 @@ ca1ca7f 2025-11-10 20:44:40 +0200 Mohamed-Amer-1729
 085f45b 2025-11-09 15:15:53 +0200 Mohamed-Amer-1729
   More merge fixing
 
-eb41cd8 2025-11-09 15:14:58 +0200 Aly Youssef
-  Fixed spelling errors
-
 0463b5e 2025-11-09 14:47:16 +0200 Mohamed-Amer-1729
   Further merge fixes
 
 14bfe6c 2025-11-09 14:44:45 +0200 Mohamed-Amer-1729
   Resolving merge issues
 
-8445d0b 2025-11-09 14:28:54 +0200 Aly Youssef
-  Merge branch 'main' of https://github.com/bobelmasry/RISC-V-single-cycle-cpu
-
-4e2f8a5 2025-11-09 14:28:42 +0200 Aly Youssef
-  Added halting
-
 d2f3e3c 2025-11-09 14:16:52 +0200 Mohamed-Amer-1729
   Minor modifications to ALU code
-
-adc4d2f 2025-11-09 14:12:05 +0200 Aly Youssef
-  Add block diagram for single-cycle RISC-V CPU
-
-35e9e9e 2025-11-09 14:10:01 +0200 Aly Youssef
-  Added Block Diagram
-
-024e4c6 2025-11-09 14:07:04 +0200 Aly Youssef
-  Added updated ALU declaration to CPU.v
-
-5dba589 2025-11-09 13:59:19 +0200 Aly Youssef
-  fixed syntax errors, removed unused nBitShift, added shifter needed for new ALU
 
 b0e906c 2025-11-09 10:07:20 +0200 Mohamed-Amer-1729
   Added all control signals for each opcode
@@ -154,23 +100,11 @@ b0e906c 2025-11-09 10:07:20 +0200 Mohamed-Amer-1729
 1835d29 2025-11-09 09:21:43 +0200 Mohamed-Amer-1729
   Temp pull
 
-0656cd5 2025-11-07 11:26:29 +0200 Aly Youssef
-  created the random instruction generator
-
-c91e82c 2025-11-03 14:58:18 +0200 Aly Youssef
-  added defines.v and starting to add new ALU
-
 df09a87 2025-11-01 13:23:08 +0200 Mohamed-Amer-1729
   Added code for testing simulation, EXP1&2
 
 80cf3a7 2025-10-28 18:19:10 +0300 Mohamed-Amer-1729
   Finished up hooking CPU with debouncers and SevenSegment driver and insured correct working on board
-
-2e3111e 2025-10-28 10:22:22 +0300 Aly Youssef
-  added constraint file for CPU.v
-
-cd59394 2025-10-28 09:53:07 +0300 Aly Youssef
-  Added seven segment driver
 
 790e287 2025-10-27 16:02:25 +0300 Mohamed-Amer-1729
   Added file for top main level
@@ -190,23 +124,5 @@ c07e467 2025-10-27 09:34:33 +0300 Mohamed-Amer-1729
 2be4937 2025-10-27 09:34:27 +0300 Mohamed-Amer-1729
   Finished coding simulation of CPU.
 
-3309684 2025-10-21 19:44:47 +0300 Aly Youssef
-  presumably added vga examples
-
-31116f4 2025-10-21 18:51:56 +0300 Aly Youssef
-  .
-
-7503655 2025-10-21 18:51:40 +0300 Aly Youssef
-  added comments and other types of instructions
-
-d94a509 2025-10-20 20:38:07 +0300 Aly Youssef
-  removed useless comments and empty files
-
 d70ef76 2025-10-16 20:56:02 +0300 Mohamed-Amer-1729
   Added pre-existing files into the repo
-
-3351fba 2025-10-16 18:16:14 +0300 Aly Youssef
-  added initial config
-
-3c639c3 2025-10-16 18:10:14 +0300 Aly Youssef
-  Initial commit
