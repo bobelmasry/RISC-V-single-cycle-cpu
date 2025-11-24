@@ -1,6 +1,6 @@
 # A simple RISC-V CPU Implementation in Verilog.
 
-![Block Diagram for a Single-Cycle RISC-V CPU](https://raw.githubusercontent.com/bobelmasry/RISC-V-single-cycle-cpu/refs/heads/main/Updated%20RISC-V%20CPU%20Block%20Diagram.png)
+![Block Diagram for a Single-Cycle RISC-V CPU](https://raw.githubusercontent.com/bobelmasry/RISC-V-single-cycle-cpu/refs/heads/main/Pipelined%20RISC-V%20CPU%20Block%20Diagram.drawio.png)
 
 # Logs:
 
