@@ -32,7 +32,7 @@ module ALU_control(
         //SRL
         6'b1x1010: ALUsel = 4'b1001;
         //SRA
-        6'b1x1011: ALUsel = 4'b1011;
+        6'b1x1011: ALUsel = 4'b1010;
         //SLT
         6'b1x010x: ALUsel = 4'b1101;
         //SLTU

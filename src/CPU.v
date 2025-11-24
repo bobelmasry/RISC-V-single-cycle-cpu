@@ -137,10 +137,12 @@ wire [31:0] secondValue_EX;
 wire zeroSignal_EX, carrySignal_EX, overflowSignal_EX, signSignal_EX;
 wire [31:0] ALUResult_EX;
 nMUX #(32) mux(.sel(ALU_src_EX_stage), .a(inputB_EX_stage), .b(Immediate_EX_stage), .c(secondValue_EX));
+//Final Shamt used
+wire [4:0] finalShamt_EX = (opcode_EX[3]) ? data_rs2_EX_stage[4:0] : shamt_EX_stage;
 prv32_ALU alu (
     .a(inputA_EX_stage),
     .b(secondValue_EX),
-    .shamt(shamt_EX_stage),
+    .shamt(finalShamt_EX),
     .alufn(ALUSelector_EX),       // ALUOp
     .r(ALUResult_EX),
     .cf(carrySignal_EX),

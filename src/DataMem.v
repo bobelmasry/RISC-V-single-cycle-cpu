@@ -49,8 +49,11 @@ module DataMem(
     integer i;
     initial begin
         for (i=0; i<256; i=i+1) mem[i] = 8'b0; // clear all bytes
-        mem[0] = 17;
-        mem[4] = 9;
-        mem[8] = 25;
+        //First word is 0xFFCCDDEE
+        mem[0] = 8'hEE;
+        mem[1] = 8'hDD;
+        mem[2] = 8'hCC;
+        mem[3] = 8'hFF;
+        
     end
 endmodule

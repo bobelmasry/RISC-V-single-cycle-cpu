@@ -12,33 +12,73 @@
    </db_ref_list>
    <zoom_setting>
       <ZoomStartTime time="0.000 ns"></ZoomStartTime>
-      <ZoomEndTime time="173.301 ns"></ZoomEndTime>
-      <Cursor1Time time="10.000 ns"></Cursor1Time>
+      <ZoomEndTime time="348.201 ns"></ZoomEndTime>
+      <Cursor1Time time="0.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="372"></NameColumnWidth>
-      <ValueColumnWidth column_width="194"></ValueColumnWidth>
+      <ValueColumnWidth column_width="186"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="5" />
-   <wvobject fp_name="/main_tb/MAIN/HDU/if_id_RegisterRs1" type="array">
-      <obj_property name="ElementShortName">if_id_RegisterRs1[4:0]</obj_property>
-      <obj_property name="ObjectShortName">if_id_RegisterRs1[4:0]</obj_property>
+   <WVObjectSize size="15" />
+   <wvobject fp_name="/main_tb/MAIN/PC_IF_stage" type="array">
+      <obj_property name="ElementShortName">PC_IF_stage[31:0]</obj_property>
+      <obj_property name="ObjectShortName">PC_IF_stage[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/HDU/if_id_RegisterRs2" type="array">
-      <obj_property name="ElementShortName">if_id_RegisterRs2[4:0]</obj_property>
-      <obj_property name="ObjectShortName">if_id_RegisterRs2[4:0]</obj_property>
+   <wvobject fp_name="/main_tb/MAIN/rs2_MEM_stage" type="array">
+      <obj_property name="ElementShortName">rs2_MEM_stage[31:0]</obj_property>
+      <obj_property name="ObjectShortName">rs2_MEM_stage[31:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/HDU/id_ex_RegisterRd" type="array">
-      <obj_property name="ElementShortName">id_ex_RegisterRd[4:0]</obj_property>
-      <obj_property name="ObjectShortName">id_ex_RegisterRd[4:0]</obj_property>
-      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   <wvobject fp_name="/main_tb/MAIN/memRead_MEM" type="logic">
+      <obj_property name="ElementShortName">memRead_MEM</obj_property>
+      <obj_property name="ObjectShortName">memRead_MEM</obj_property>
    </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/HDU/id_ex_MemRead" type="logic">
-      <obj_property name="ElementShortName">id_ex_MemRead</obj_property>
-      <obj_property name="ObjectShortName">id_ex_MemRead</obj_property>
+   <wvobject fp_name="/main_tb/MAIN/memWrite_MEM" type="logic">
+      <obj_property name="ElementShortName">memWrite_MEM</obj_property>
+      <obj_property name="ObjectShortName">memWrite_MEM</obj_property>
    </wvobject>
-   <wvobject fp_name="/main_tb/MAIN/HDU/stall" type="logic">
-      <obj_property name="ElementShortName">stall</obj_property>
-      <obj_property name="ObjectShortName">stall</obj_property>
+   <wvobject fp_name="/main_tb/MAIN/DataMemory/mem[0]" type="array">
+      <obj_property name="ElementShortName">[0][7:0]</obj_property>
+      <obj_property name="ObjectShortName">[0][7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/DataMemory/mem[1]" type="array">
+      <obj_property name="ElementShortName">[1][7:0]</obj_property>
+      <obj_property name="ObjectShortName">[1][7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/DataMemory/mem[2]" type="array">
+      <obj_property name="ElementShortName">[2][7:0]</obj_property>
+      <obj_property name="ObjectShortName">[2][7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/DataMemory/mem[3]" type="array">
+      <obj_property name="ElementShortName">[3][7:0]</obj_property>
+      <obj_property name="ObjectShortName">[3][7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/DataMemory/mem[4]" type="array">
+      <obj_property name="ElementShortName">[4][7:0]</obj_property>
+      <obj_property name="ObjectShortName">[4][7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/DataMemory/mem[5]" type="array">
+      <obj_property name="ElementShortName">[5][7:0]</obj_property>
+      <obj_property name="ObjectShortName">[5][7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/DataMemory/mem[6]" type="array">
+      <obj_property name="ElementShortName">[6][7:0]</obj_property>
+      <obj_property name="ObjectShortName">[6][7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/DataMemory/mem[7]" type="array">
+      <obj_property name="ElementShortName">[7][7:0]</obj_property>
+      <obj_property name="ObjectShortName">[7][7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/DataMemory/mem[8]" type="array">
+      <obj_property name="ElementShortName">[8][7:0]</obj_property>
+      <obj_property name="ObjectShortName">[8][7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/DataMemory/mem[9]" type="array">
+      <obj_property name="ElementShortName">[9][7:0]</obj_property>
+      <obj_property name="ObjectShortName">[9][7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/main_tb/MAIN/DataMemory/mem[10]" type="array">
+      <obj_property name="ElementShortName">[10][7:0]</obj_property>
+      <obj_property name="ObjectShortName">[10][7:0]</obj_property>
    </wvobject>
 </wave_config>
