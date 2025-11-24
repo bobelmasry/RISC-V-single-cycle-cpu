@@ -7,7 +7,7 @@ input [5:0] addr, output [31:0] data_out
     reg [31:0] memory[0:63];
     assign data_out = memory[addr];
     initial begin
-//        /*
+        /*
         // testing both stalling and forwatding
         memory[0]=32'b000000000000_00000_010_00001_0000011 ; //lw x1, 0(x0)
         memory[1]=32'b000000000100_00000_010_00010_0000011 ; //lw x2, 4(x0)
@@ -25,7 +25,7 @@ input [5:0] addr, output [31:0] data_out
         memory[13]=32'b0100000_00010_00001_000_01000_0110011 ; //sub x8, x1, x2
         memory[14]=32'b0000000_00010_00001_000_00000_0110011 ; //add x0, x1, x2
         memory[15]=32'b0000000_00001_00000_000_01001_0110011 ; //add x9, x0, x1
-//        */
+        */
 
 /*
         //        Testing for only forwarding hazard
@@ -93,7 +93,7 @@ input [5:0] addr, output [31:0] data_out
         
         
         //No NOPs
-        /*
+//        /*
         memory[0]=32'b000000000000_00000_010_00001_0000011 ; //lw x1, 0(x0)
         memory[1]=32'b000000000100_00000_010_00010_0000011 ; //lw x2, 4(x0)
         memory[2]=32'b000000001000_00000_010_00011_0000011 ; //lw x3, 8(x0)
@@ -107,7 +107,7 @@ input [5:0] addr, output [31:0] data_out
         memory[10]=32'b0100000_00010_00001_000_01000_0110011 ; //sub x8, x1, x2
         memory[11]=32'b0000000_00010_00001_000_00000_0110011 ; //add x0, x1, x2
         memory[12]=32'b0000000_00001_00000_000_01001_0110011 ; //add x9, x0, x1
-        */
+//        */
         
         //The looping code way back then
         /*

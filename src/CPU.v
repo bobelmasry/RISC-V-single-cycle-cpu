@@ -17,15 +17,15 @@ InstrMem InstructionMemory(.addr(PC_IF_stage[7:2]),.data_out(IF_data));
 wire [6:0] opcode_IF_stage = IF_data[6:0];
 wire [2:0] funct3_IF_stage = IF_data[14:12];
 wire isHalt;
-//TODO: Will add mechanism to handle halting in the IF stage. Will not add isHalt to any of the registers
-
+wire [31:0] nop_IF = 32'b00000000000000000000000000110011;
+wire [31:0] outputIF_IF = (BranchConfirm_MEM) ? nop_IF: IF_data; 
 assign isHalt = (opcode_IF_stage == 7'b0001111 || opcode_IF_stage == 7'b1110011) ? 1 : 0;
 ////////////End of IF 
 wire [63:0] IF_ID_reg;
 //Docs
 //[63:32] is the PC
 //[31:0] is the IF_data
-Register #(64) RG_IF_ID(.clk(clk), .load(~stall), .rst(rst), .D({PC_IF_stage, IF_data}), .Q(IF_ID_reg)); 
+Register #(64) RG_IF_ID(.clk(clk), .load(~stall), .rst(rst), .D({PC_IF_stage, outputIF_IF}), .Q(IF_ID_reg)); 
 ////////////Start of ID
 wire [31:0] PC_ID_stage = IF_ID_reg[63:32];
 wire [31:0] IF_data_ID_stage = IF_ID_reg[31:0];
@@ -51,7 +51,7 @@ SpecialInstructionControlUnit SICU(.opcode(IF_data_ID_stage[6:2]), .sel(SpecialI
 wire [11:0] allControl_ID_stage = {memoryReadSignal_ID, memoryWriteSignal_ID, memoryToRegisterSignal_ID, registerWriteSignal_ID,
 ALUSourceSignal_ID, ALUOpSignal_ID, branchSignal_ID, jumpSignal_ID, SpecialInstructionCodes_ID};
 wire [11:0] controls_Saved_ID_stage;
-nMUX #(12) muxControl(.sel(stall), .a(allControl_ID_stage), .b(12'b000000000000), .c(controls_Saved_ID_stage));
+nMUX #(12) muxControl_ID(.sel(stall | BranchConfirm_MEM), .a(allControl_ID_stage), .b(12'b000000000000), .c(controls_Saved_ID_stage));
 //Instruction Decoding
 wire RegWrite_WB_stage;
 wire [4:0] rd_WB_stage;
@@ -169,6 +169,12 @@ wire [31:0] PC_Imm_EX_stage = PC_EX_stage + Immediate_EX_stage;
 wire [31:0] PC_RS1_Imm_EX_stage = data_rs1_EX_stage + Immediate_EX_stage;
 wire [31:0] PC_Branch_EX_stage = (opcode_EX == 5'b11011 || opcode_EX == 5'b11001) ? PC_RS1_Imm_EX_stage : PC_Imm_EX_stage;
 
+// Control checking for flushing
+wire [9:0] allControl_EX = {memRead_EX, memWrite_EX, memToReg_EX, regWrite_EX, branchSignal_EX, jumpSignal_EX,
+ zeroSignal_EX, carrySignal_EX, overflowSignal_EX, signSignal_EX};
+wire [9:0] controls_Saved_EX_stage;
+nMUX #(12) muxControl_EX(.sel(BranchConfirm_MEM), .a(allControl_EX), .b(12'b000000000000), .c(controls_Saved_EX_stage));
+
 //End of execution stage
 // module Register #(parameter n = 8)(input clk, load, rst, input [n-1:0] D, output [n-1:0] Q);
 wire [113:0] EX_MEM_reg;
@@ -182,8 +188,8 @@ wire [113:0] EX_MEM_reg;
 //[113:111] funct3 funct3to7_EX_stage[2:0]
 Register #(114) RG_EX_MEM(.clk(clk), .load(1'b1), .rst(rst), 
 .D({
-funct3to7_EX_stage[2:0], memRead_EX, memWrite_EX, memToReg_EX, regWrite_EX, branchSignal_EX, jumpSignal_EX,
-PC_Branch_EX_stage, zeroSignal_EX, carrySignal_EX, overflowSignal_EX, signSignal_EX,
+funct3to7_EX_stage[2:0], controls_Saved_EX_stage[9:4],
+PC_Branch_EX_stage, controls_Saved_EX_stage[3:0],
 ALUorSpecialResult_EX_stage, inputB_EX_stage, rd_EX_stage
 }), 
 .Q(EX_MEM_reg)); 
@@ -216,7 +222,7 @@ BranchControlUnit BCU(.funct3(funct3_MEM_stage), .zeroSignal(zeroSignal_MEM), .c
 //Branch decisions
 wire [31:0] PC_Temp_MEM;
 // select between branch and PC+4
-nMUX #(32) BranchMux(.sel(BranchConfirm_MEM), .a(PC_Add4_IF_stage), .b(PC_branch_address_MEM_stage), .c(PC_Temp_MEM));
+nMUX #(32) BranchMux(.sel(BranchConfirm_MEM | jumpSignal_MEM), .a(PC_Add4_IF_stage), .b(PC_branch_address_MEM_stage), .c(PC_Temp_MEM));
 // Then, if halt, keep PC
 nMUX #(32) HaltMux(.sel(isHalt),
     .a(PC_Temp_MEM),       // Normal Branch
