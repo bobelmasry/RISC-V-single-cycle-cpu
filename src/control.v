@@ -64,7 +64,7 @@ always@(*) begin
         RegWrite = 1'b1;
         end
         // JAL  (J type)
-        5'b11001: begin
+        5'b11011: begin
         jump = 1'b1;
         branch = 1'b0; 
         memRead = 1'b0;
@@ -75,7 +75,7 @@ always@(*) begin
         RegWrite = 1'b1;
         end
         // JALR  (I type)
-        5'b11011: begin
+        5'b11001: begin
         jump = 1'b1;
         branch = 1'b0; 
         memRead = 1'b0;

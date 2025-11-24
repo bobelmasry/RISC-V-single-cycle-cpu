@@ -18,7 +18,7 @@ wire [6:0] opcode_IF_stage = IF_data[6:0];
 wire [2:0] funct3_IF_stage = IF_data[14:12];
 wire isHalt;
 wire [31:0] nop_IF = 32'b00000000000000000000000000110011;
-wire [31:0] outputIF_IF = (BranchConfirm_MEM) ? nop_IF: IF_data; 
+wire [31:0] outputIF_IF = (BranchConfirm_MEM | jumpSignal_MEM) ? nop_IF: IF_data; 
 assign isHalt = (opcode_IF_stage == 7'b0001111 || opcode_IF_stage == 7'b1110011) ? 1 : 0;
 ////////////End of IF 
 wire [63:0] IF_ID_reg;
@@ -51,7 +51,7 @@ SpecialInstructionControlUnit SICU(.opcode(IF_data_ID_stage[6:2]), .sel(SpecialI
 wire [11:0] allControl_ID_stage = {memoryReadSignal_ID, memoryWriteSignal_ID, memoryToRegisterSignal_ID, registerWriteSignal_ID,
 ALUSourceSignal_ID, ALUOpSignal_ID, branchSignal_ID, jumpSignal_ID, SpecialInstructionCodes_ID};
 wire [11:0] controls_Saved_ID_stage;
-nMUX #(12) muxControl_ID(.sel(stall | BranchConfirm_MEM), .a(allControl_ID_stage), .b(12'b000000000000), .c(controls_Saved_ID_stage));
+nMUX #(12) muxControl_ID(.sel(stall | (BranchConfirm_MEM | jumpSignal_MEM)), .a(allControl_ID_stage), .b(12'b000000000000), .c(controls_Saved_ID_stage));
 //Instruction Decoding
 wire RegWrite_WB_stage;
 wire [4:0] rd_WB_stage;
@@ -152,15 +152,15 @@ prv32_ALU alu (
 );
 
 //Special instructions - AUIPC, LUI, JAL, JALR
-wire [31:0] ShiftedImmediate_EX;
-shifter SpecialShifter(
-    .a(Immediate_EX_stage), .shamt(5'b01100),
-    .type(2'b00),
-    .r(ShiftedImmediate_EX)
-);
+//wire [31:0] ShiftedImmediate_EX;
+//shifter SpecialShifter(
+//    .a(Immediate_EX_stage), .shamt(5'b01100),
+//    .type(2'b00),
+//    .r(ShiftedImmediate_EX)
+//);
 wire [31:0] PC_Add4_EX_stage = PC_EX_stage+32'd4;
 wire [31:0] specialInstructionResult_EX;
-SpecialInstructionAdder SIA(.Immediate(ShiftedImmediate_EX), 
+SpecialInstructionAdder SIA(.Immediate(Immediate_EX_stage), 
 .PC(PC_EX_stage), .PC_Add4(PC_Add4_EX_stage), .sel(special2BitCode_EX_stage), .result(specialInstructionResult_EX));
 
 //Choose between special instruction or ALU result to be written
@@ -168,14 +168,14 @@ wire [31:0] ALUorSpecialResult_EX_stage;
 nMUX #(32) muxALUorSpecialData(.sel(special1BitCode_Ex_stage), .a(ALUResult_EX), .b(specialInstructionResult_EX), .c(ALUorSpecialResult_EX_stage));
 
 wire [31:0] PC_Imm_EX_stage = PC_EX_stage + Immediate_EX_stage;
-wire [31:0] PC_RS1_Imm_EX_stage = data_rs1_EX_stage + Immediate_EX_stage;
+wire [31:0] PC_RS1_Imm_EX_stage = inputA_EX_stage + Immediate_EX_stage;
 wire [31:0] PC_Branch_EX_stage = (opcode_EX == 5'b11001) ? PC_RS1_Imm_EX_stage : PC_Imm_EX_stage;
 
 // Control checking for flushing
 wire [9:0] allControl_EX = {memRead_EX, memWrite_EX, memToReg_EX, regWrite_EX, branchSignal_EX, jumpSignal_EX,
  zeroSignal_EX, carrySignal_EX, overflowSignal_EX, signSignal_EX};
 wire [9:0] controls_Saved_EX_stage;
-nMUX #(12) muxControl_EX(.sel(BranchConfirm_MEM), .a(allControl_EX), .b(12'b000000000000), .c(controls_Saved_EX_stage));
+nMUX #(12) muxControl_EX(.sel(BranchConfirm_MEM | jumpSignal_MEM), .a(allControl_EX), .b(12'b000000000000), .c(controls_Saved_EX_stage));
 
 //End of execution stage
 // module Register #(parameter n = 8)(input clk, load, rst, input [n-1:0] D, output [n-1:0] Q);
@@ -212,7 +212,8 @@ wire memToReg_MEM = EX_MEM_reg[108];
 wire regWrite_MEM;
 assign regWrite_MEM = EX_MEM_reg[107];
 wire branchSignal_MEM = EX_MEM_reg[106];
-wire jumpSignal_MEM = EX_MEM_reg[105];
+wire jumpSignal_MEM;
+assign jumpSignal_MEM = EX_MEM_reg[105];
 wire [2:0] funct3_MEM_stage = EX_MEM_reg[113:111];
 // branch controls
 //Branch address logic for Exexution stage
