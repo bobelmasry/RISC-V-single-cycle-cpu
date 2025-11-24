@@ -13,7 +13,8 @@ Register #(32) ProgramCounter(.clk(clk), .load(~stall), .rst(rst), .D(PC_input_I
 
 //Instruction Fetching
 wire [31:0] IF_data;
-InstrMem InstructionMemory(.addr(PC_IF_stage[7:2]),.data_out(IF_data));
+// InstrMem InstructionMemory(.addr(PC_IF_stage[7:2]),.data_out(IF_data));
+assign IF_data = MemoryOutput_MEM_stage;
 wire [6:0] opcode_IF_stage = IF_data[6:0];
 wire [2:0] funct3_IF_stage = IF_data[14:12];
 wire isHalt;
@@ -33,7 +34,8 @@ wire [31:0] IF_data_ID_stage = IF_ID_reg[31:0];
 wire stall;
 hazardDetectionUnit HDU(
     .if_id_RegisterRs1(IF_data_ID_stage[19:15]), .if_id_RegisterRs2(IF_data_ID_stage[24:20]),
-    .id_ex_RegisterRd(rd_EX_stage), .id_ex_MemRead(memRead_EX),
+    .id_ex_RegisterRd(rd_EX_stage), .id_ex_MemRead(memRead_EX), 
+    .mem_memRead(memRead_MEM), .mem_memWrite(memWrite_MEM),
     .stall(stall)
 );
 
@@ -206,8 +208,10 @@ wire overflowSignal_MEM = EX_MEM_reg[70];
 wire carrySignal_MEM = EX_MEM_reg[71];
 wire zeroSignal_MEM = EX_MEM_reg[72];
 wire [31:0] PC_branch_address_MEM_stage = EX_MEM_reg[104:73];
-wire memRead_MEM = EX_MEM_reg[110];
-wire memWrite_MEM = EX_MEM_reg[109];
+wire memRead_MEM;
+assign memRead_MEM = EX_MEM_reg[110];
+wire memWrite_MEM;
+assign memWrite_MEM = EX_MEM_reg[109];
 wire memToReg_MEM = EX_MEM_reg[108];
 wire regWrite_MEM;
 assign regWrite_MEM = EX_MEM_reg[107];
@@ -236,9 +240,13 @@ nMUX #(32) HaltMux(.sel(isHalt),
 // Memory
 wire [7:0] MemoryAddress_MEM_stage;
 wire [31:0] MemoryOutput_MEM_stage;
-assign MemoryAddress_MEM_stage = ALUorSpecialResult_MEM_stage[7:0];
-DataMem DataMemory(.clk(clk), .MemRead(memRead_MEM), .MemWrite(memWrite_MEM),
-                    .addr(MemoryAddress_MEM_stage), .data_in(rs2_MEM_stage), .data_out(MemoryOutput_MEM_stage), .funct3(funct3_MEM_stage));
+assign MemoryAddress_MEM_stage = (memRead_MEM | memWrite_MEM) ? ALUorSpecialResult_MEM_stage[7:0] : PC_IF_stage[7:0];
+wire memReadOrPC_MEM = (memRead_MEM | memWrite_MEM) ? memRead_MEM : 1'b1;
+wire [2:0] funct3OrPC_MEM = (memRead_MEM | memWrite_MEM) ? funct3_MEM_stage : 3'b010;
+//Single memory code
+
+DataMem DataMemory(.clk(clk), .MemRead(memReadOrPC_MEM), .MemWrite(memWrite_MEM),
+                    .addr(MemoryAddress_MEM_stage), .data_in(rs2_MEM_stage), .data_out(MemoryOutput_MEM_stage), .funct3(funct3OrPC_MEM));
 //End of memory stage
 // module Register #(parameter n = 8)(input clk, load, rst, input [n-1:0] D, output [n-1:0] Q);
 wire [70:0] MEM_WB_reg;

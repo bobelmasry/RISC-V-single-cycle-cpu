@@ -49,11 +49,25 @@ module DataMem(
     integer i;
     initial begin
         for (i=0; i<256; i=i+1) mem[i] = 8'b0; // clear all bytes
-        //First word is 0xFFCCDDEE
-        mem[0] = 8'hEE;
-        mem[1] = 8'hDD;
-        mem[2] = 8'hCC;
-        mem[3] = 8'hFF;
+        // addi x1, x0, 10 - 0x00a00093
+mem[0] = 8'h93;
+mem[1] = 8'h00;
+mem[2] = 8'hA0;
+mem[3] = 8'h00;
+
+// add x2, x1, x1 - 0x00108133
+mem[4] = 8'h33;
+mem[5] = 8'h81;
+mem[6] = 8'h10;
+mem[7] = 8'h00;
+
+// add x3, x2, x2 - 0x002101b3
+mem[8] = 8'hB3;
+mem[9] = 8'h01;
+mem[10] = 8'h21;
+mem[11] = 8'h00;
+// ecall - 0x00000073
+mem[12] = 8'h73;
         
     end
 endmodule
