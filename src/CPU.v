@@ -14,7 +14,7 @@ Register #(32) ProgramCounter(.clk(clk), .load(~stall), .rst(rst), .D(PC_input_I
 //Instruction Fetching
 wire [31:0] IF_data;
 // InstrMem InstructionMemory(.addr(PC_IF_stage[7:2]),.data_out(IF_data));
-assign IF_data = MemoryOutput_MEM_stage;
+assign IF_data = MemoryOutput_MEM_stage; //Switched the IF to be from the single memory
 wire [6:0] opcode_IF_stage = IF_data[6:0];
 wire [2:0] funct3_IF_stage = IF_data[14:12];
 wire isHalt;
@@ -238,15 +238,16 @@ nMUX #(32) HaltMux(.sel(isHalt),
 );
 
 // Memory
-wire [7:0] MemoryAddress_MEM_stage;
+wire [9:0] MemoryAddress_MEM_stage;
 wire [31:0] MemoryOutput_MEM_stage;
-assign MemoryAddress_MEM_stage = (memRead_MEM | memWrite_MEM) ? ALUorSpecialResult_MEM_stage[7:0] : PC_IF_stage[7:0];
-wire memReadOrPC_MEM = (memRead_MEM | memWrite_MEM) ? memRead_MEM : 1'b1;
+assign MemoryAddress_MEM_stage = (memRead_MEM | memWrite_MEM) ? ALUorSpecialResult_MEM_stage[9:0] : PC_IF_stage[9:0];
+wire memReadOrPC_MEM = (memRead_MEM | memWrite_MEM) ? (memRead_MEM) : 1'b1;
 wire [2:0] funct3OrPC_MEM = (memRead_MEM | memWrite_MEM) ? funct3_MEM_stage : 3'b010;
 //Single memory code
 
 DataMem DataMemory(.clk(clk), .MemRead(memReadOrPC_MEM), .MemWrite(memWrite_MEM),
-                    .addr(MemoryAddress_MEM_stage), .data_in(rs2_MEM_stage), .data_out(MemoryOutput_MEM_stage), .funct3(funct3OrPC_MEM));
+                    .addr(MemoryAddress_MEM_stage), .data_in(rs2_MEM_stage), .data_out(MemoryOutput_MEM_stage), 
+                    .funct3(funct3OrPC_MEM));
 //End of memory stage
 // module Register #(parameter n = 8)(input clk, load, rst, input [n-1:0] D, output [n-1:0] Q);
 wire [70:0] MEM_WB_reg;
